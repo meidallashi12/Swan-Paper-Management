@@ -1,4 +1,4 @@
-Swan Paper Management
+# Swan Paper Management
 A comprehensive management analysis framework covering the end-to-end operations of a hygenic paper fabric manufacturing company, from raw material procurement and tissue machine performance to quality assurance, financial control, and workforce management.
 
  # Overview
