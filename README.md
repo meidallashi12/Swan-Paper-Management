@@ -64,3 +64,4 @@ Covers energy, water, and carbon performance tracking integrated into core opera
 - **Scalability**, providing a framework applicable from single-site to multi-plant operations
 
 ---
+TODO: USER CARDS FOR FUNCTIONAL REQUIREMENTS, ORGANIGRAM, BPMN
