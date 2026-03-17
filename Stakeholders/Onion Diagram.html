@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Swan Paper Products — Stakeholder Onion Diagram</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e1118;
+    --ring-core: #1e3a5f;
+    --ring-ops: #2d4a2d;
+    --ring-market: #4a3520;
+    --ring-reg: #1a3a2a;
+    --ring-ext: #1e1e3a;
+    --node-core: #4a90d9;
+    --node-ops: #6db56d;
+    --node-market: #d4a054;
+    --node-reg: #5db89a;
+    --node-ext: #8888cc;
+    --text-light: #f0f0f0;
+    --tooltip-bg: #1a1f2e;
+    --tooltip-border: #3a4a6a;
+  }
+
+  body {
+    background: var(--bg);
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 30px 20px 60px;
+    overflow-x: hidden;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #e8e0d0;
+  }
+
+  header p {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 4px;
+    font-weight: 300;
+  }
+
+  .diagram-wrapper {
+    position: relative;
+    width: 700px;
+    height: 700px;
+    margin: 0 auto;
+  }
+
+  svg.rings {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+
+  /* Nodes */
+  .node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s ease;
+  }
+
+  .node:hover { transform: translate(-50%, -50%) scale(1.1); }
+  .node:hover .bubble { box-shadow: 0 0 0 3px rgba(255,255,255,0.3), 0 8px 24px rgba(0,0,0,0.5); }
+
+  .bubble {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.62rem;
+    font-weight: 500;
+    line-height: 1.2;
+    padding: 6px;
+    transition: box-shadow 0.2s ease;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    user-select: none;
+  }
+
+  .bubble.core   { background: var(--node-core);   color: #fff; }
+  .bubble.ops    { background: var(--node-ops);    color: #fff; }
+  .bubble.market { background: var(--node-market); color: #fff; }
+  .bubble.reg    { background: var(--node-reg);    color: #fff; }
+  .bubble.ext    { background: var(--node-ext);    color: #dde; }
+
+  .bubble.large  { width: 70px; height: 70px; font-size: 0.68rem; }
+  .bubble.medium { width: 58px; height: 58px; }
+  .bubble.small  { width: 48px; height: 48px; font-size: 0.58rem; }
+
+  .node.active .bubble {
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.5), 0 8px 24px rgba(0,0,0,0.6);
+  }
+
+  /* Ring labels */
+  .ring-label {
+    position: absolute;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  /* Tooltip */
+  #tooltip {
+    position: fixed;
+    max-width: 260px;
+    background: var(--tooltip-bg);
+    border: 1px solid var(--tooltip-border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 1000;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  }
+
+  #tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #tooltip h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #e8e0d0;
+  }
+
+  #tooltip p {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: #aab;
+    font-weight: 300;
+  }
+
+  #tooltip .ring-tag {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.72rem;
+    color: #aaa;
+  }
+
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+
+  .click-hint {
+    font-size: 0.72rem;
+    color: #555;
+    margin-top: 8px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Swan Paper Products</h1>
+  <p>Stakeholder Onion Diagram — click any node to view role</p>
+</header>
+
+<div class="diagram-wrapper" id="diagram">
+  <!-- SVG rings drawn by JS -->
+  <svg class="rings" id="rings-svg"></svg>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#4a90d9"></div>Core leadership</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#6db56d"></div>Operations</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d4a054"></div>Market &amp; partners</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#5db89a"></div>Regulatory &amp; financial</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#8888cc"></div>External environment</div>
+</div>
+<p class="click-hint">Click a node to see its description · Click again or elsewhere to dismiss</p>
+
+<div id="tooltip">
+  <div class="ring-tag" id="tt-tag"></div>
+  <h3 id="tt-name"></h3>
+  <p id="tt-desc"></p>
+</div>
+
+<script>
+const CX = 350, CY = 350;
+
+// Rings: [label, radius, color, labelColor, labelAngle(deg)]
+const rings = [
+  { label: "Core leadership",      r: 115, fill: "rgba(30,58,95,0.55)",   stroke: "#4a90d9", lColor: "#7ab8f5", lAngle: -30 },
+  { label: "Operations",           r: 195, fill: "rgba(45,74,45,0.45)",   stroke: "#6db56d", lColor: "#90d490", lAngle: -20 },
+  { label: "Market & partners",    r: 265, fill: "rgba(74,53,32,0.40)",   stroke: "#d4a054", lColor: "#d4a054", lAngle: -15 },
+  { label: "Regulatory & financial",r: 320, fill: "rgba(26,58,42,0.35)",  stroke: "#5db89a", lColor: "#5db89a", lAngle: -12 },
+  { label: "External environment", r: 340, fill: "rgba(30,30,58,0.30)",   stroke: "#8888cc", lColor: "#9999dd", lAngle: -10 },
+];
+
+// Stakeholders
+// ring: 0=core,1=ops,2=market,3=reg,4=ext
+// pos: angle in degrees from top (0=top, 90=right), dist = fraction of ring radius (1=on ring edge)
+const stakeholders = [
+  // CORE LEADERSHIP — evenly spaced around center
+  { name:"Board of dir.",ring:0, size:"medium", angle:0,   dist:0.01, desc:"Governing body responsible for corporate oversight, approving major decisions, and representing shareholder interests." },
+  { name:"CEO",          ring:0, size:"small",  angle:270, dist:0.72, desc:"Sets overall company strategy, leads executive team, and is accountable to the Board of Directors for Swan Paper Products' performance." },
+  { name:"CFO",          ring:0, size:"small",  angle:342, dist:0.72, desc:"Chief Financial Officer. Manages financial planning, risk, and reporting at the executive level." },
+  { name:"CSCO",         ring:0, size:"small",  angle:54,  dist:0.72, desc:"Chief Supply Chain Officer. Oversees procurement, logistics, and end-to-end supply chain operations." },
+  { name:"COO",          ring:0, size:"small",  angle:126, dist:0.72, desc:"Chief Operating Officer. Oversees day-to-day manufacturing and operational efficiency across all plants." },
+
+  // OPERATIONS
+  { name:"Plant\nmanager",      ring:1, size:"medium", angle:145, dist:0.72, desc:"Oversees the manufacturing plant's daily operations, workforce, and production targets." },
+  { name:"Chief\nengineer",     ring:1, size:"medium", angle:30,  dist:0.72, desc:"Leads engineering design, process innovation, and technical problem-solving across production lines." },
+  { name:"Sales &\nmktg. dir.", ring:1, size:"medium", angle:355, dist:0.72, desc:"Drives revenue growth through sales strategy, customer acquisition, and marketing campaigns." },
+  { name:"QA\nmanager",        ring:1, size:"medium", angle:310, dist:0.72, desc:"Ensures product quality standards are met through testing, audits, and continuous improvement processes." },
+  { name:"HR & HSE\nmanager",  ring:1, size:"medium", angle:245, dist:0.80, desc:"Manages human resources, health, safety, and environmental compliance across the organization." },
+  { name:"Procure.\nmanager",  ring:1, size:"medium", angle:210, dist:0.80, desc:"Handles supplier relationships, purchasing, and cost-effective sourcing of raw materials and services." },
+  { name:"Factory\nworkers",   ring:1, size:"medium", angle:175, dist:0.88, desc:"Front-line employees who operate machinery and execute the core manufacturing processes." },
+  // Finance Controller MOVED HERE from outer ring
+  { name:"Finance\ncontroller",ring:1, size:"medium", angle:75,  dist:0.80, desc:"Manages internal product costing, pricing decisions, variance analysis, and profit/cost reporting for manufacturing operations." },
+
+  // MARKET & PARTNERS
+  { name:"Raw material\nsuppliers", ring:2, size:"medium", angle:195, dist:0.80, desc:"External suppliers providing pulp, chemicals, and other inputs essential for paper manufacturing." },
+  { name:"Retail /\nB2B customers", ring:2, size:"medium", angle:310, dist:0.80, desc:"End buyers of Swan Paper Products, ranging from retail distributors to large business-to-business clients." },
+
+  // REGULATORY & FINANCIAL
+  { name:"Investors /\nfunders",   ring:3, size:"medium", angle:20,  dist:0.85, desc:"Shareholders, venture partners, or financial institutions providing capital and expecting returns." },
+
+  // EXTERNAL ENVIRONMENT
+  { name:"Environ.\nreg. bodies", ring:4, size:"medium", angle:185, dist:0.80, desc:"Government and independent bodies that regulate environmental standards, emissions, and sustainability compliance." },
+  { name:"Local\ncommunity",      ring:4, size:"medium", angle:240, dist:0.88, desc:"Residents and community groups near Swan Paper's facilities who are affected by its operations and employment." },
+];
+
+const ringColors = ["#4a90d9","#6db56d","#d4a054","#5db89a","#8888cc"];
+const ringTags   = ["Core leadership","Operations","Market & partners","Regulatory & financial","External environment"];
+const ringTagBg  = ["rgba(74,144,217,0.2)","rgba(109,181,109,0.2)","rgba(212,160,84,0.2)","rgba(93,184,154,0.2)","rgba(136,136,204,0.2)"];
+
+// Draw SVG rings
+const svg = document.getElementById('rings-svg');
+svg.setAttribute('viewBox',`0 0 700 700`);
+[...rings].reverse().forEach(ring => {
+  const c = document.createElementNS("http://www.w3.org/2000/svg","circle");
+  c.setAttribute("cx", CX); c.setAttribute("cy", CY);
+  c.setAttribute("r", ring.r);
+  c.setAttribute("fill", ring.fill);
+  c.setAttribute("stroke", ring.stroke);
+  c.setAttribute("stroke-width","1.2");
+  c.setAttribute("stroke-dasharray","4 3");
+  c.setAttribute("opacity","1");
+  svg.appendChild(c);
+});
+
+// Ring labels in SVG
+rings.forEach(ring => {
+  const angle = ring.lAngle * Math.PI / 180 - Math.PI/2;
+  const labelR = ring.r - 14;
+  const x = CX + labelR * Math.cos(angle);
+  const y = CY + labelR * Math.sin(angle);
+  const t = document.createElementNS("http://www.w3.org/2000/svg","text");
+  t.setAttribute("x", x); t.setAttribute("y", y);
+  t.setAttribute("fill", ring.lColor);
+  t.setAttribute("font-size","10");
+  t.setAttribute("font-family","Outfit, sans-serif");
+  t.setAttribute("font-weight","500");
+  t.setAttribute("letter-spacing","1");
+  t.setAttribute("text-anchor","middle");
+  t.setAttribute("dominant-baseline","middle");
+  t.textContent = ring.label.toUpperCase();
+  svg.appendChild(t);
+});
+
+// Place nodes
+const diagram = document.getElementById('diagram');
+stakeholders.forEach((s, i) => {
+  const ring = rings[s.ring];
+  const prevR = s.ring > 0 ? rings[s.ring-1].r : 0;
+  const baseR = prevR + (ring.r - prevR) * s.dist;
+  const rad = (s.angle - 90) * Math.PI / 180;
+  const x = CX + baseR * Math.cos(rad);
+  const y = CY + baseR * Math.sin(rad);
+
+  const node = document.createElement('div');
+  node.className = 'node';
+  node.style.left = x + 'px';
+  node.style.top  = y + 'px';
+  node.dataset.index = i;
+
+  const bubble = document.createElement('div');
+  const ringClass = ['core','ops','market','reg','ext'][s.ring];
+  bubble.className = `bubble ${ringClass} ${s.size}`;
+  bubble.innerHTML = s.name.replace(/\n/g,'<br/>');
+  node.appendChild(bubble);
+  diagram.appendChild(node);
+
+  node.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const wasActive = node.classList.contains('active');
+    document.querySelectorAll('.node').forEach(n => n.classList.remove('active'));
+    hideTooltip();
+    if (!wasActive) {
+      node.classList.add('active');
+      showTooltip(e, s, s.ring);
+    }
+  });
+});
+
+// Tooltip
+const tooltip = document.getElementById('tooltip');
+const ttName  = document.getElementById('tt-name');
+const ttDesc  = document.getElementById('tt-desc');
+const ttTag   = document.getElementById('tt-tag');
+
+function showTooltip(e, s, ringIdx) {
+  ttName.textContent = s.name.replace(/\n/g,' ');
+  ttDesc.textContent = s.desc;
+  ttTag.textContent  = ringTags[ringIdx];
+  ttTag.style.background = ringTagBg[ringIdx];
+  ttTag.style.color = ringColors[ringIdx];
+  tooltip.classList.add('visible');
+  positionTooltip(e.clientX, e.clientY);
+}
+
+function hideTooltip() {
+  tooltip.classList.remove('visible');
+}
+
+function positionTooltip(mx, my) {
+  const tw = 260, th = 130;
+  const vw = window.innerWidth, vh = window.innerHeight;
+  let tx = mx + 16, ty = my + 16;
+  if (tx + tw > vw - 10) tx = mx - tw - 16;
+  if (ty + th > vh - 10) ty = my - th - 16;
+  tooltip.style.left = tx + 'px';
+  tooltip.style.top  = ty + 'px';
+}
+
+document.addEventListener('click', () => {
+  document.querySelectorAll('.node').forEach(n => n.classList.remove('active'));
+  hideTooltip();
+});
+
+// Animate nodes in
+document.querySelectorAll('.node').forEach((n,i) => {
+  n.style.opacity = '0';
+  n.style.transition = `opacity 0.4s ease ${0.05*i + 0.3}s, transform 0.2s ease`;
+  setTimeout(() => { n.style.opacity = '1'; }, 50);
+});
+</script>
+</body>
+</html>
