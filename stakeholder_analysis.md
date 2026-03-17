@@ -1,4 +1,4 @@
-# Stakeholder Analysis — Tissue & Fabric Manufacturing
+# Stakeholder Analysis — Swan Paper Products
 
 | Stakeholder | Stakeholder Role / Responsibility | Importance | Influence | Interests / Positive Impacts | Concerns |
 |---|---|:---:|:---:|---|---|
