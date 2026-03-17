@@ -1,5 +1,4 @@
-# Scenarios — Swan Paper Management
-
+# Scenarios  
 A structured set of 25 operational scenarios covering all stakeholder groups. Each scenario is defined by a trigger, the action taken, and the expected outcome. Scenarios are traceable to their source user card via the UC reference.
 
 ---
