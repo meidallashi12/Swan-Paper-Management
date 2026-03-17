@@ -62,6 +62,3 @@ Covers energy, water, and carbon performance tracking integrated into core opera
 - **Compliance**, defining management requirements for ISO 9001, 14001, 45001, and 50001
 - **Organizational Clarity**, establishing clear roles, reporting lines, and accountability
 - **Scalability**, providing a framework applicable from single-site to multi-plant operations
-
----
-TODO: USER CARDS FOR FUNCTIONAL REQUIREMENTS, ORGANIGRAM, BPMN
