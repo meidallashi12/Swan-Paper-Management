@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Swan Paper – Ethnographic Analysis Schema</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --cream: #ede7d6;
+    --blue: #1a3a5c;
+    --teal: #1c6b6b;
+    --rust: #b84a2e;
+    --gold: #c49a2e;
+    --muted: #7a7060;
+    --border: #c8bda8;
+    --white: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    padding: 32px 24px;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+    margin-bottom: 36px;
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: var(--rust);
+    margin: 12px auto 0;
+  }
+  .header .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 4vw, 36px);
+    font-weight: 900;
+    color: var(--blue);
+    line-height: 1.1;
+  }
+  .header p {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--ink);
+  }
+  .legend-dot {
+    width: 14px; height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ── MAIN SCHEMA GRID ── */
+  .schema {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0;
+    border: 2px solid var(--ink);
+    background: var(--white);
+    max-width: 1100px;
+    margin: 0 auto 28px;
+  }
+
+  /* ── ZONE SIDEBAR ── */
+  .zone-label {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 6px;
+    border-right: 2px solid var(--ink);
+    color: var(--white);
+  }
+
+  .zone-row {
+    display: contents;
+  }
+
+  /* ── ROW CONTENT ── */
+  .zone-content {
+    padding: 16px 20px;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .zone-row:last-child .zone-content,
+  .zone-row:last-child .zone-label {
+    border-bottom: none;
+  }
+
+  /* Zone colors */
+  .zone-procurement .zone-label { background: var(--blue); }
+  .zone-production .zone-label { background: var(--teal); }
+  .zone-quality .zone-label { background: var(--rust); }
+  .zone-maintenance .zone-label { background: #4a4a6a; }
+  .zone-finance .zone-label { background: var(--gold); color: var(--ink); }
+  .zone-hse .zone-label { background: #3a6b3a; }
+  .zone-esg .zone-label { background: #5a3a6b; }
+
+  /* ── ZONE HEADER ── */
+  .zone-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .zone-id {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 2px 7px;
+    border-radius: 2px;
+  }
+  .zone-title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  /* ── CARDS INSIDE ZONE ── */
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .card {
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 13px;
+    min-width: 160px;
+    flex: 1;
+    background: var(--paper);
+  }
+  .card-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .card-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    border: 1px solid;
+  }
+
+  /* Card type colors */
+  .actor .card-type { color: var(--blue); }
+  .actor { border-color: var(--blue); }
+  .actor .tag { border-color: var(--blue); color: var(--blue); background: #e8f0fa; }
+
+  .activity .card-type { color: var(--teal); }
+  .activity { border-color: var(--teal); }
+  .activity .tag { border-color: var(--teal); color: var(--teal); background: #e6f4f4; }
+
+  .artifact .card-type { color: var(--rust); }
+  .artifact { border-color: var(--rust); }
+  .artifact .tag { border-color: var(--rust); color: var(--rust); background: #faeae6; }
+
+  .tool .card-type { color: #4a4a6a; }
+  .tool { border-color: #4a4a6a; }
+  .tool .tag { border-color: #4a4a6a; color: #4a4a6a; background: #ededf5; }
+
+  .rule .card-type { color: var(--gold); }
+  .rule { border-color: var(--gold); }
+  .rule .tag { border-color: var(--gold); color: #8a6a10; background: #fdf6e3; }
+
+  /* ── INTERACTION FLOWS ── */
+  .flow-section {
+    max-width: 1100px;
+    margin: 0 auto 28px;
+    border: 2px solid var(--ink);
+    background: var(--white);
+  }
+  .flow-header {
+    background: var(--ink);
+    color: var(--white);
+    padding: 10px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .flow-body {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .flow-node {
+    background: var(--paper);
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    padding: 8px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 110px;
+    position: relative;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .flow-node .sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  .flow-arrow {
+    padding: 0 8px;
+    color: var(--muted);
+    font-size: 16px;
+    font-weight: 300;
+    flex-shrink: 0;
+  }
+  .flow-arrow.feedback {
+    color: var(--rust);
+  }
+  .flow-node.highlight {
+    border-color: var(--rust);
+    background: #faeae6;
+  }
+  .flow-node.gate {
+    background: var(--cream);
+    border-color: var(--gold);
+    border-style: dashed;
+  }
+
+  /* ── DECISION GATES ── */
+  .gates-grid {
+    max-width: 1100px;
+    margin: 0 auto 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .gate-card {
+    border: 2px solid var(--ink);
+    background: var(--white);
+    padding: 14px 16px;
+  }
+  .gate-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .gate-q {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .gate-branches {
+    display: flex;
+    gap: 6px;
+  }
+  .gate-branch {
+    flex: 1;
+    padding: 5px 8px;
+    border-radius: 2px;
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    text-align: center;
+  }
+  .branch-yes { background: #e6f4f0; color: #1c6b3a; border: 1px solid #1c6b3a; }
+  .branch-no  { background: #faeae6; color: var(--rust); border: 1px solid var(--rust); }
+
+  /* ── PAIN POINTS ── */
+  .pain-grid {
+    max-width: 1100px;
+    margin: 0 auto 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px;
+  }
+  .pain-card {
+    background: var(--white);
+    border-left: 4px solid var(--rust);
+    padding: 12px 14px;
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .pain-zone {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .pain-title {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+  .pain-desc {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    max-width: 1100px;
+    margin: 0 auto 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1.5px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media (max-width: 700px) {
+    .schema { grid-template-columns: 60px 1fr; }
+    .zone-label { font-size: 10px; }
+    .cards { flex-direction: column; }
+    .flow-body { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="label">Software Engineering Analysis &amp; Design · Ethnographic Study</div>
+  <h1>Swan Paper Management<br>Ethnographic Analysis Schema</h1>
+  <p>Hygienic Paper Fabric Manufacturing · End-to-End Process Observation Map</p>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#1a3a5c"></div>Actor</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1c6b6b"></div>Activity</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#b84a2e"></div>Artifact</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#4a4a6a"></div>Tool / System</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c49a2e"></div>Rule / Constraint</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ZONE 1 – PROCUREMENT -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section-title">Observed Process Zones</div>
+<div class="schema">
+
+  <!-- ZONE 1 -->
+  <div class="zone-row zone-procurement">
+    <div class="zone-label">Z1 · Procurement</div>
+    <div class="zone-content">
+      <div class="zone-header">
+        <span class="zone-id">Z-01</span>
+        <span class="zone-title">Supply Chain &amp; Procurement</span>
+      </div>
+      <div class="cards">
+        <div class="card actor">
+          <div class="card-type">Actor</div>
+          <div class="card-name">Procurement Manager</div>
+          <div class="tag-list">
+            <span class="tag">Vendor Selection</span>
+            <span class="tag">PO Approval</span>
+            <span class="tag">Safety Stock</span>
+          </div>
+        </div>
+        <div class="card activity">
+          <div class="card-type">Activity</div>
+          <div class="card-name">Supplier Qualification &amp; RFQ</div>
+          <div class="tag-list">
+            <span class="tag">ABC/XYZ Analysis</span>
+            <span class="tag">PPV Tracking</span>
+          </div>
+        </div>
+        <div class="card artifact">
+          <div class="card-type">Artifact</div>
+          <div class="card-name">Purchase Order / GRN</div>
+          <div class="tag-list">
+            <span class="tag">Fiber</span>
+            <span class="tag">Chemicals</span>
+            <span class="tag">Packaging</span>
+          </div>
+        </div>
+        <div class="card tool">
+          <div class="card-type">Tool / System</div>
+          <div class="card-name">ERP / Inventory Module</div>
+          <div class="tag-list">
+            <span class="tag">Min-Max Policy</span>
+            <span class="tag">Lead Time</span>
+          </div>
+        </div>
+        <div class="card rule">
+          <div class="card-type">Rule / Constraint</div>
+          <div class="card-name">FSC / PEFC Compliance</div>
+          <div class="tag-list">
+            <span class="tag">ISO 14001</span>
+            <span class="tag">Chain of Custody</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 2 -->
+  <div class="zone-row zone-production">
+    <div class="zone-label">Z2 · Production</div>
+    <div class="zone-content">
+      <div class="zone-header">
+        <span class="zone-id">Z-02</span>
+        <span class="zone-title">Production &amp; Operations Management</span>
+      </div>
+      <div class="cards">
+        <div class="card actor">
+          <div class="card-type">Actor</div>
+          <div class="card-name">Plant Manager / Shift Supervisor</div>
+          <div class="tag-list">
+            <span class="tag">4-Crew Rotation</span>
+            <span class="tag">24/7 Ops</span>
+          </div>
+        </div>
+        <div class="card activity">
+          <div class="card-type">Activity</div>
+          <div class="card-name">Stock Prep &gt; Tissue Machine &gt; Converting</div>
+          <div class="tag-list">
+            <span class="tag">Pulping</span>
+            <span class="tag">Creping</span>
+            <span class="tag">Slitting</span>
+          </div>
+        </div>
+        <div class="card artifact">
+          <div class="card-type">Artifact</div>
+          <div class="card-name">Parent Reel / Finished Pallet</div>
+          <div class="tag-list">
+            <span class="tag">Lot ID</span>
+            <span class="tag">Traceability Tag</span>
+          </div>
+        </div>
+        <div class="card tool">
+          <div class="card-type">Tool / System</div>
+          <div class="card-name">MES / OEE Dashboard</div>
+          <div class="tag-list">
+            <span class="tag">Availability</span>
+            <span class="tag">Performance</span>
+            <span class="tag">Quality Rate</span>
+          </div>
+        </div>
+        <div class="card rule">
+          <div class="card-type">Rule / Constraint</div>
+          <div class="card-name">Broke &amp; Reject Classification</div>
+          <div class="tag-list">
+            <span class="tag">Repulpable Broke</span>
+            <span class="tag">Waste Limit</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 3 -->
+  <div class="zone-row zone-quality">
+    <div class="zone-label">Z3 · Quality</div>
+    <div class="zone-content">
+      <div class="zone-header">
+        <span class="zone-id">Z-03</span>
+        <span class="zone-title">Quality Control &amp; Compliance</span>
+      </div>
+      <div class="cards">
+        <div class="card actor">
+          <div class="card-type">Actor</div>
+          <div class="card-name">QA Manager / Lab Technician</div>
+          <div class="tag-list">
+            <span class="tag">In-line Inspection</span>
+            <span class="tag">Final Audit</span>
+          </div>
+        </div>
+        <div class="card activity">
+          <div class="card-type">Activity</div>
+          <div class="card-name">SPC Monitoring &amp; NCR/CAPA</div>
+          <div class="tag-list">
+            <span class="tag">Control Charts</span>
+            <span class="tag">Root Cause Analysis</span>
+          </div>
+        </div>
+        <div class="card artifact">
+          <div class="card-type">Artifact</div>
+          <div class="card-name">Certificate of Analysis (CoA)</div>
+          <div class="tag-list">
+            <span class="tag">Basis Weight</span>
+            <span class="tag">Tensile</span>
+            <span class="tag">Softness</span>
+          </div>
+        </div>
+        <div class="card tool">
+          <div class="card-type">Tool / System</div>
+          <div class="card-name">LIMS / eQMS</div>
+          <div class="tag-list">
+            <span class="tag">Batch Trace</span>
+            <span class="tag">NCR Log</span>
+          </div>
+        </div>
+        <div class="card rule">
+          <div class="card-type">Rule / Constraint</div>
+          <div class="card-name">ISO 9001 &amp; EN 12625</div>
+          <div class="tag-list">
+            <span class="tag">CAPA Mandatory</span>
+            <span class="tag">Hold / Release</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 4 -->
+  <div class="zone-row zone-maintenance">
+    <div class="zone-label">Z4 · Maintenance</div>
+    <div class="zone-content">
+      <div class="zone-header">
+        <span class="zone-id">Z-04</span>
+        <span class="zone-title">Maintenance &amp; Asset Management</span>
+      </div>
+      <div class="cards">
+        <div class="card actor">
+          <div class="card-type">Actor</div>
+          <div class="card-name">Chief Engineer / Maintenance Crew</div>
+          <div class="tag-list">
+            <span class="tag">PM Execution</span>
+            <span class="tag">Shutdown Mgmt</span>
+          </div>
+        </div>
+        <div class="card activity">
+          <div class="card-type">Activity</div>
+          <div class="card-name">PM / PdM Work Orders &amp; Shutdown</div>
+          <div class="tag-list">
+            <span class="tag">Vibration Analysis</span>
+            <span class="tag">Thermal Imaging</span>
+          </div>
+        </div>
+        <div class="card artifact">
+          <div class="card-type">Artifact</div>
+          <div class="card-name">Work Order / Downtime Log</div>
+          <div class="tag-list">
+            <span class="tag">MTBF</span>
+            <span class="tag">MTTR</span>
+            <span class="tag">Downtime Class</span>
+          </div>
+        </div>
+        <div class="card tool">
+          <div class="card-type">Tool / System</div>
+          <div class="card-name">CMMS (Computerized Maint. Mgmt)</div>
+          <div class="tag-list">
+            <span class="tag">Spare Parts</span>
+            <span class="tag">Asset Registry</span>
+          </div>
+        </div>
+        <div class="card rule">
+          <div class="card-type">Rule / Constraint</div>
+          <div class="card-name">TPM Philosophy &amp; ISO 45001</div>
+          <div class="tag-list">
+            <span class="tag">LOTO Procedure</span>
+            <span class="tag">Annual Shutdown</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5 -->
+  <div class="zone-row zone-finance">
+    <div class="zone-label">Z5 · Finance</div>
+    <div class="zone-content">
+      <div class="zone-header">
+        <span class="zone-id">Z-05</span>
+        <span class="zone-title">Financial &amp; Cost Management</span>
+      </div>
+      <div class="cards">
+        <div class="card actor">
+          <div class="card-type">Actor</div>
+          <div class="card-name">CFO / Finance Controller</div>
+          <div class="tag-list">
+            <span class="tag">Budgeting</span>
+            <span class="tag">Variance Analysis</span>
+          </div>
+        </div>
+        <div class="card activity">
+          <div class="card-type">Activity</div>
+          <div class="card-name">Cost Flash &gt; Variance &gt; P&amp;L Reporting</div>
+          <div class="tag-list">
+            <span class="tag">Daily</span>
+            <span class="tag">Weekly</span>
+            <span class="tag">Monthly</span>
+          </div>
+        </div>
+        <div class="card artifact">
+          <div class="card-type">Artifact</div>
+          <div class="card-name">Cost-per-Tonne Report / P&amp;L</div>
+          <div class="tag-list">
+            <span class="tag">CAPEX Request</span>
+            <span class="tag">Working Capital</span>
+          </div>
+        </div>
+        <div class="card tool">
+          <div class="card-type">Tool / System</div>
+          <div class="card-name">ERP Finance Module / BI Dashboard</div>
+          <div class="tag-list">
+            <span class="tag">Standard Costing</span>
+            <span class="tag">PPV</span>
+          </div>
+        </div>
+        <div class="card rule">
+          <div class="card-type">Rule / Constraint</div>
+          <div class="card-name">Reporting Cadence &amp; IFRS</div>
+          <div class="tag-list">
+            <span class="tag">Cost Allocation</span>
+            <span class="tag">Audit Trail</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 6 -->
+  <div class="zone-row zone-hse">
+    <div class="zone-label">Z6 · HR / HSE</div>
+    <div class="zone-content">
+      <div class="zone-header">
+        <span class="zone-id">Z-06</span>
+        <span class="zone-title">Workforce &amp; Shift Management</span>
+      </div>
+      <div class="cards">
+        <div class="card actor">
+          <div class="card-type">Actor</div>
+          <div class="card-name">HR &amp; HSE Manager</div>
+          <div class="tag-list">
+            <span class="tag">Shift Scheduling</span>
+            <span class="tag">Incident Mgmt</span>
+          </div>
+        </div>
+        <div class="card activity">
+          <div class="card-type">Activity</div>
+          <div class="card-name">Skills Matrix &amp; Competency Assessment</div>
+          <div class="tag-list">
+            <span class="tag">Toolbox Talks</span>
+            <span class="tag">Succession Plan</span>
+          </div>
+        </div>
+        <div class="card artifact">
+          <div class="card-type">Artifact</div>
+          <div class="card-name">Incident Report / Training Record</div>
+          <div class="tag-list">
+            <span class="tag">Near Miss Log</span>
+            <span class="tag">LTI Rate</span>
+          </div>
+        </div>
+        <div class="card tool">
+          <div class="card-type">Tool / System</div>
+          <div class="card-name">HRIS / HSE Platform</div>
+          <div class="tag-list">
+            <span class="tag">e-Learning</span>
+            <span class="tag">Permit to Work</span>
+          </div>
+        </div>
+        <div class="card rule">
+          <div class="card-type">Rule / Constraint</div>
+          <div class="card-name">ISO 45001 &amp; Labor Law</div>
+          <div class="tag-list">
+            <span class="tag">4-Crew Rotation</span>
+            <span class="tag">Max Hours</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 7 -->
+  <div class="zone-row zone-esg">
+    <div class="zone-label">Z7 · ESG</div>
+    <div class="zone-content">
+      <div class="zone-header">
+        <span class="zone-id">Z-07</span>
+        <span class="zone-title">Sustainability &amp; ESG Reporting</span>
+      </div>
+      <div class="cards">
+        <div class="card actor">
+          <div class="card-type">Actor</div>
+          <div class="card-name">COO / ESG Lead</div>
+          <div class="tag-list">
+            <span class="tag">GRI Reporting</span>
+            <span class="tag">Carbon Accounting</span>
+          </div>
+        </div>
+        <div class="card activity">
+          <div class="card-type">Activity</div>
+          <div class="card-name">Energy, Water &amp; Emission Monitoring</div>
+          <div class="tag-list">
+            <span class="tag">Scope 1+2</span>
+            <span class="tag">kWh / tonne</span>
+          </div>
+        </div>
+        <div class="card artifact">
+          <div class="card-type">Artifact</div>
+          <div class="card-name">ESG / Sustainability Report</div>
+          <div class="tag-list">
+            <span class="tag">GRI Aligned</span>
+            <span class="tag">FSC Certificate</span>
+          </div>
+        </div>
+        <div class="card tool">
+          <div class="card-type">Tool / System</div>
+          <div class="card-name">Energy Management System (EnMS)</div>
+          <div class="tag-list">
+            <span class="tag">Sub-metering</span>
+            <span class="tag">ISO 50001</span>
+          </div>
+        </div>
+        <div class="card rule">
+          <div class="card-type">Rule / Constraint</div>
+          <div class="card-name">ISO 14001 &amp; PEFC Chain of Custody</div>
+          <div class="tag-list">
+            <span class="tag">Emission Factors</span>
+            <span class="tag">Audit</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end schema -->
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- INFORMATION FLOW SEQUENCE                      -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="section-title">Core Information &amp; Material Flow</div>
+<div class="flow-section">
+  <div class="flow-header">Observed Sequence · Material + Data Flow Across Zones</div>
+  <div class="flow-body">
+    <div class="flow-node">Supplier<br><span class="sub">Raw Material Input</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node gate">GRN Inspection<br><span class="sub">QC Gate · Z-03</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node">Stock Prep<br><span class="sub">Pulping · Z-02</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node">Tissue Machine<br><span class="sub">OEE · MES · Z-02</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node gate">In-line SPC<br><span class="sub">QC Gate · Z-03</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node">Converting<br><span class="sub">Slitting · Z-02</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node gate">Final QC + CoA<br><span class="sub">QC Gate · Z-03</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node">Palletize<br><span class="sub">WMS · Z-02</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node highlight">Customer Delivery<br><span class="sub">Sales · Revenue</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- DECISION GATES                                 -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="section-title">Critical Decision Gates Observed</div>
+<div class="gates-grid">
+
+  <div class="gate-card">
+    <div class="gate-label">Gate · Z-01</div>
+    <div class="gate-q">Is the supplier qualified and compliant with FSC/PEFC?</div>
+    <div class="gate-branches">
+      <div class="gate-branch branch-yes">Yes: Issue PO</div>
+      <div class="gate-branch branch-no">No: Qualification Process</div>
+    </div>
+  </div>
+
+  <div class="gate-card">
+    <div class="gate-label">Gate · Z-02 / Z-03</div>
+    <div class="gate-q">Does GRN material pass incoming QC inspection?</div>
+    <div class="gate-branches">
+      <div class="gate-branch branch-yes">Yes: Release to Store</div>
+      <div class="gate-branch branch-no">No: Raise NCR / Return</div>
+    </div>
+  </div>
+
+  <div class="gate-card">
+    <div class="gate-label">Gate · Z-03</div>
+    <div class="gate-q">Is in-line SPC within control limits during tissue run?</div>
+    <div class="gate-branches">
+      <div class="gate-branch branch-yes">Yes: Continue Run</div>
+      <div class="gate-branch branch-no">No: Stop / Adjust / Repulp</div>
+    </div>
+  </div>
+
+  <div class="gate-card">
+    <div class="gate-label">Gate · Z-04</div>
+    <div class="gate-q">Is the maintenance event planned or unplanned?</div>
+    <div class="gate-branches">
+      <div class="gate-branch branch-yes">PM: Work Order</div>
+      <div class="gate-branch branch-no">Breakdown: RCA</div>
+    </div>
+  </div>
+
+  <div class="gate-card">
+    <div class="gate-label">Gate · Z-03</div>
+    <div class="gate-q">Does finished goods batch pass final QC and CoA?</div>
+    <div class="gate-branches">
+      <div class="gate-branch branch-yes">Yes: Release</div>
+      <div class="gate-branch branch-no">No: CAPA / Hold</div>
+    </div>
+  </div>
+
+  <div class="gate-card">
+    <div class="gate-label">Gate · Z-05</div>
+    <div class="gate-q">Does CAPEX request meet ROI and payback thresholds?</div>
+    <div class="gate-branches">
+      <div class="gate-branch branch-yes">Yes: Board Approval</div>
+      <div class="gate-branch branch-no">No: Revise / Reject</div>
+    </div>
+  </div>
+
+  <div class="gate-card">
+    <div class="gate-label">Gate · Z-06</div>
+    <div class="gate-q">Does the incident meet LTI classification criteria?</div>
+    <div class="gate-branches">
+      <div class="gate-branch branch-yes">Yes: LTI Report + RCA</div>
+      <div class="gate-branch branch-no">No: Near-Miss Log</div>
+    </div>
+  </div>
+
+  <div class="gate-card">
+    <div class="gate-label">Gate · Z-07</div>
+    <div class="gate-q">Are ESG KPIs within annual target thresholds?</div>
+    <div class="gate-branches">
+      <div class="gate-branch branch-yes">Yes: GRI Report</div>
+      <div class="gate-branch branch-no">No: Corrective Action</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PAIN POINTS                                    -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="section-title">Ethnographic Pain Points &amp; Tensions Observed</div>
+<div class="pain-grid">
+  <div class="pain-card">
+    <div class="pain-zone">Z-02 · Production</div>
+    <div class="pain-title">Unplanned Downtime Visibility Gap</div>
+    <div class="pain-desc">Shift supervisors rely on verbal handover; no real-time OEE alert triggers cross-zone notifications to maintenance.</div>
+  </div>
+  <div class="pain-card">
+    <div class="pain-zone">Z-01 · Procurement</div>
+    <div class="pain-title">Safety Stock Drift</div>
+    <div class="pain-desc">Manual reorder point management leads to over-stocking of C-class items and stock-outs of critical A-class fiber grades.</div>
+  </div>
+  <div class="pain-card">
+    <div class="pain-zone">Z-03 · Quality</div>
+    <div class="pain-title">CAPA Closure Delay</div>
+    <div class="pain-desc">NCRs raised at production level are not systematically escalated; CAPA closure rates fall below the 90% monthly target.</div>
+  </div>
+  <div class="pain-card">
+    <div class="pain-zone">Z-04 · Maintenance</div>
+    <div class="pain-title">Spare Parts Data Fragmentation</div>
+    <div class="pain-desc">Spare parts catalog exists in both CMMS and spreadsheet; discrepancies cause delays in breakdown response procurement.</div>
+  </div>
+  <div class="pain-card">
+    <div class="pain-zone">Z-05 · Finance</div>
+    <div class="pain-title">Cost-per-Tonne Latency</div>
+    <div class="pain-desc">Daily cost flash depends on manual entry from three systems; data often arrives the following morning, reducing its operational value.</div>
+  </div>
+  <div class="pain-card">
+    <div class="pain-zone">Z-06 · HR / HSE</div>
+    <div class="pain-title">Skills Matrix Staleness</div>
+    <div class="pain-desc">Competency records are updated quarterly but skills gaps surface in real time during shift handover, creating unquantified risk.</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span>Swan Paper Management · Ethnographic Analysis Schema</span>
+  <span>SE Analysis &amp; Design Class · v1.0 · 2026</span>
+  <span>Zones: Z-01 to Z-07 · Gates: 8 Decision Points · Artifacts: 35+</span>
+</div>
+
+</body>
+</html>
