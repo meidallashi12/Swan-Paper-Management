@@ -35,25 +35,6 @@ Covers energy, water, and carbon performance tracking integrated into core opera
 
 ---
 
-# Stakeholders
-
-| Stakeholder | Role |
-|---|---|
-| Board of Directors | Strategic oversight, capital allocation, executive accountability |
-| Chief Executive Officer (CEO) | Overall strategy, investor relations, cross-functional alignment |
-| Chief Operating Officer (COO) | Day-to-day manufacturing, quality, and logistics operations |
-| Chief Financial Officer (CFO) | Budgeting, cost accounting, treasury, and financial reporting |
-| Chief Supply Chain Officer (CSCO) | End-to-end supply chain, vendor relationships, and material flow |
-| Plant Manager | On-site production performance, safety, and team management |
-| Procurement Manager | Supplier management, purchasing workflows, and inventory control |
-| QA Manager | Quality standards, compliance, and non-conformance management |
-| Chief Engineer | Asset maintenance, capex projects, and energy management |
-| HR & HSE Manager | Workforce planning, training, safety compliance, and labor relations |
-| Sales & Marketing Director | Customer relationships, pricing strategy, and channel management |
-| Finance Controller | Product costing, variance analysis, and management reporting |
-
----
-
 ## Analysis Goals
 
 - **Uptime**, reducing unplanned downtime through structured maintenance management
