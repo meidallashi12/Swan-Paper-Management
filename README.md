@@ -1,48 +1,11 @@
-# Swan Paper Management
+# Swan Paper Fabrics — Operations Management System
 
-A management analysis framework covering the end-to-end operations of a hygenic paper fabric manufacturing company, from raw material procurement and tissue machine performance to quality assurance, financial control, and workforce management.
+Swan Paper Fabrics is a medium-scale tissue paper manufacturer running multiple production lines, a live supply chain, and a workforce that needs clear direction every shift. SPF-OMS is the management system built to match that complexity — a structured, relational database solution that connects every operational layer of the facility into one coherent source of truth.
 
----
+The system covers the full production lifecycle: materials arrive, get logged against suppliers, move through the line, and exit as finished goods tied to a specific batch, machine, and shift. Nothing moves without a record, and every record connects back to the people and resources behind it.
 
-## Overview
+Inventory, sales orders, workforce scheduling, and outbound logistics are all modeled within the same database, meaning a delay on the floor surfaces immediately in fulfillment, and a low stock alert ties directly back to the relevant supplier. The relationships between departments are not implied — they are enforced at the data level.
 
-Hygenic paper production, covering toilet tissue, kitchen rolls, facial tissues, and industrial wipes, requires precise coordination across procurement, production, quality, maintenance, logistics, and finance. Swan Paper Management provides a structured analytical framework for every layer of the business, giving operators, supervisors, and executives a clear model for how each function should be organized, measured, and managed.
+Reporting is built into the system rather than bolted on. Pre-written views and stored procedures produce the numbers management needs — yield rates, stock turnover, delivery performance, cost per unit — without anyone assembling them by hand.
 
----
-
-## Analysis Areas
-
-**Production & Operations Management**
-Covers the full manufacturing cycle from stock preparation to finished goods transfer, including OEE tracking, 4-crew rotating shift structure, broke and reject classification, and traceability from parent reel to pallet.
-
-**Supply Chain & Procurement**
-Covers sourcing, purchasing, and inventory management across fiber, chemicals, packaging, and energy, including supplier qualification, safety stock policy, ABC/XYZ classification, and purchase price variance analysis.
-
-**Quality Control & Compliance**
-Covers in-line and finished goods quality management aligned with ISO 9001 and EN 12625, including SPC methodology, NCR/CAPA processes, batch traceability, and Certificate of Analysis requirements.
-
-**Maintenance & Asset Management**
-Covers preventive and predictive maintenance management built around a TPM philosophy, including work order processes, spare parts policy, downtime classification, and annual shutdown planning.
-
-**Financial & Cost Management**
-Covers product costing, variance analysis, capex evaluation, and working capital management, with a defined reporting cadence from daily cost flash to monthly P&L.
-
-**Workforce & Shift Management**
-Covers scheduling, competency tracking, and HSE compliance for 24/7 rotating shift operations, including skills matrix management, incident classification, and succession planning.
-
-**Sustainability & ESG**
-Covers energy, water, and carbon performance tracking integrated into core operational reporting, including FSC/PEFC compliance, emission factor methodology, and GRI-aligned ESG reporting.
-
----
-
-## Analysis Goals
-
-- **Uptime**, reducing unplanned downtime through structured maintenance management
-- **Yield**, improving fiber consumption and reject rates through quality monitoring and SPC
-- **Cost Visibility**, establishing daily cost-per-tonne visibility across all variable cost categories
-- **Compliance**, defining management requirements for ISO 9001, 14001, 45001, and 50001
-- **Organizational Clarity**, establishing clear roles, reporting lines, and accountability
-- **Scalability**, providing a framework applicable from single-site to multi-plant operations
-
----
-TODO: USER CARDS FOR FUNCTIONAL REQUIREMENTS, ORGANIGRAM, BPMN
+SPF-OMS was designed with one principle in mind: every operation the facility runs should be visible, traceable, and impossible to lose.
