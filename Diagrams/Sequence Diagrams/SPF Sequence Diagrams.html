@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SPF-OMS Sequence Diagrams</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #111;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 40px 24px 80px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+  }
+
+  header p {
+    font-size: 14px;
+    color: #888;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(580px, 1fr));
+    gap: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .diagram-card {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 28px 24px 20px;
+    overflow: hidden;
+  }
+
+  .diagram-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 4px;
+  }
+
+  .diagram-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ddd;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #252525;
+  }
+
+  svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .actor-head {
+    fill: none;
+    stroke: #aaa;
+    stroke-width: 1.5;
+  }
+  .actor-body { stroke: #aaa; stroke-width: 1.5; }
+  .actor-label { fill: #bbb; font-size: 12px; font-family: 'Segoe UI', Arial, sans-serif; text-anchor: middle; }
+
+  .lifeline { stroke: #444; stroke-width: 1; stroke-dasharray: 6 4; }
+
+  .sys-box { fill: none; stroke-width: 1.5; rx: 8; }
+  .sys-label { font-size: 13px; font-weight: 600; font-family: 'Segoe UI', Arial, sans-serif; text-anchor: middle; }
+
+  .msg-arrow { stroke: #aaa; stroke-width: 1; fill: none; marker-end: url(#arr); }
+  .msg-return { stroke: #aaa; stroke-width: 1; fill: none; stroke-dasharray: 5 3; marker-end: url(#arr); }
+  .msg-label { fill: #ccc; font-size: 11px; font-family: 'Segoe UI', Arial, sans-serif; text-anchor: middle; }
+  .msg-label-bold { fill: #fff; font-size: 11px; font-weight: 600; font-family: 'Segoe UI', Arial, sans-serif; }
+
+  .sys-note { fill: #1f1f1f; stroke: #333; stroke-width: 0.8; }
+  .note-text { fill: #999; font-size: 10px; font-family: 'Segoe UI', Arial, sans-serif; text-anchor: middle; }
+  .note-text-em { fill: #bbb; font-size: 10px; font-weight: 600; font-family: 'Segoe UI', Arial, sans-serif; text-anchor: middle; }
+
+  .fr-tag { fill: #444; font-size: 10px; font-family: 'Segoe UI', Arial, sans-serif; text-anchor: middle; }
+
+  .cond-note { fill: #888; font-size: 10px; font-family: 'Segoe UI', Arial, sans-serif; }
+
+  footer {
+    text-align: center;
+    margin-top: 80px;
+    font-size: 12px;
+    color: #444;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SPF-OMS — Sequence Diagrams</h1>
+  <p>Swan Paper Fabrics · Operations Management System · System Behaviour Reference</p>
+</header>
+
+<div class="grid">
+
+<!-- ═══════════════════════════════════════════════════════════
+     DIAGRAM 5 — Raise & approve purchase order (FR_05, FR_18)
+═══════════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 5</div>
+  <div class="diagram-title">Raise and approve a purchase order</div>
+  <svg viewBox="0 0 560 560">
+    <defs>
+      <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <!-- Actor -->
+    <circle cx="80" cy="30" r="13" class="actor-head"/>
+    <line x1="80" y1="43" x2="80" y2="70" class="actor-body"/>
+    <line x1="57" y1="55" x2="103" y2="55" class="actor-body"/>
+    <line x1="80" y1="70" x2="62" y2="92" class="actor-body"/>
+    <line x1="80" y1="70" x2="98" y2="92" class="actor-body"/>
+    <text class="actor-label" x="80" y="106">Owner</text>
+    <!-- System -->
+    <rect x="360" y="8" width="160" height="36" rx="8" fill="#1f1f1f" stroke="#C04828" stroke-width="1.5"/>
+    <text class="sys-label" x="440" y="31" fill="#E06040">SPF System</text>
+    <!-- Lifelines -->
+    <line x1="80" y1="112" x2="80" y2="540" class="lifeline"/>
+    <line x1="440" y1="44" x2="440" y2="540" class="lifeline"/>
+    <!-- Messages -->
+    <line x1="80" y1="134" x2="430" y2="134" class="msg-arrow"/>
+    <text class="msg-label" x="255" y="127">Login, navigate to Purchase Orders</text>
+
+    <line x1="80" y1="166" x2="430" y2="166" class="msg-arrow"/>
+    <text class="msg-label" x="255" y="159">Click <tspan class="msg-label-bold">New Order</tspan>, select supplier</text>
+
+    <line x1="80" y1="198" x2="430" y2="198" class="msg-arrow"/>
+    <text class="msg-label" x="255" y="191">Select material type and quantity</text>
+
+    <line x1="80" y1="230" x2="430" y2="230" class="msg-arrow"/>
+    <text class="msg-label" x="255" y="223">Enter expected delivery date</text>
+
+    <!-- Sys note: pre-fill -->
+    <rect x="462" y="240" width="88" height="52" rx="5" class="sys-note"/>
+    <text class="note-text" x="506" y="256">Pre-fill default</text>
+    <text class="note-text" x="506" y="269">reorder qty</text>
+    <text class="note-text" x="506" y="282">(FR_20)</text>
+    <line x1="462" y1="264" x2="450" y2="264" stroke="#444" stroke-width="0.8"/>
+
+    <!-- Return: set to pending -->
+    <line x1="430" y1="306" x2="90" y2="306" class="msg-return"/>
+    <text class="msg-label" x="255" y="299">PO set to <tspan class="msg-label-bold">Pending Approval</tspan></text>
+
+    <line x1="80" y1="338" x2="430" y2="338" class="msg-arrow"/>
+    <text class="msg-label" x="255" y="331">Review order details</text>
+
+    <line x1="80" y1="370" x2="430" y2="370" class="msg-arrow"/>
+    <text class="msg-label" x="255" y="363">Approve and <tspan class="msg-label-bold">dispatch to supplier</tspan></text>
+
+    <!-- Sys note: update + notify -->
+    <rect x="462" y="380" width="88" height="52" rx="5" class="sys-note"/>
+    <text class="note-text" x="506" y="396">Update status</text>
+    <text class="note-text-em" x="506" y="409">Approved</text>
+    <text class="note-text" x="506" y="422">Notify supplier</text>
+    <line x1="462" y1="404" x2="450" y2="404" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="430" y1="446" x2="90" y2="446" class="msg-return"/>
+    <text class="msg-label" x="255" y="439">Confirm PO dispatched</text>
+
+    <text class="cond-note" x="340" y="476">*Only authorised users can approve</text>
+    <text class="fr-tag" x="80" y="530">FR_05 / FR_18</text>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DIAGRAM 6 — Record raw material receipt (FR_08)
+═══════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 6</div>
+  <div class="diagram-title">Record a raw material receipt</div>
+  <svg viewBox="0 0 560 520">
+    <defs>
+      <marker id="arr6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <circle cx="80" cy="30" r="13" class="actor-head"/>
+    <line x1="80" y1="43" x2="80" y2="70" class="actor-body"/>
+    <line x1="57" y1="55" x2="103" y2="55" class="actor-body"/>
+    <line x1="80" y1="70" x2="62" y2="92" class="actor-body"/>
+    <line x1="80" y1="70" x2="98" y2="92" class="actor-body"/>
+    <text class="actor-label" x="80" y="106">Owner</text>
+    <rect x="360" y="8" width="160" height="36" rx="8" fill="#1f1f1f" stroke="#C04828" stroke-width="1.5"/>
+    <text class="sys-label" x="440" y="31" fill="#E06040">SPF System</text>
+    <line x1="80" y1="112" x2="80" y2="500" class="lifeline"/>
+    <line x1="440" y1="44" x2="440" y2="500" class="lifeline"/>
+
+    <line x1="80" y1="134" x2="430" y2="134" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr6)"/>
+    <text class="msg-label" x="255" y="127">Login, navigate to Raw Material Receipts</text>
+
+    <line x1="80" y1="166" x2="430" y2="166" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr6)"/>
+    <text class="msg-label" x="255" y="159">Click <tspan class="msg-label-bold">Log Receipt</tspan>, select supplier</text>
+
+    <line x1="80" y1="198" x2="430" y2="198" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr6)"/>
+    <text class="msg-label" x="255" y="191">Select material type, enter qty received</text>
+
+    <line x1="80" y1="230" x2="430" y2="230" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr6)"/>
+    <text class="msg-label" x="255" y="223">Enter arrival date and confirm</text>
+
+    <rect x="462" y="240" width="88" height="52" rx="5" class="sys-note"/>
+    <text class="note-text" x="506" y="256">Validate fields</text>
+    <text class="note-text" x="506" y="269">Link to open PO</text>
+    <text class="note-text" x="506" y="282">if exists</text>
+    <line x1="462" y1="264" x2="450" y2="264" stroke="#444" stroke-width="0.8"/>
+
+    <rect x="462" y="304" width="88" height="44" rx="5" class="sys-note"/>
+    <text class="note-text" x="506" y="320">Update inventory</text>
+    <text class="note-text-em" x="506" y="337">automatically</text>
+    <line x1="462" y1="326" x2="450" y2="326" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="430" y1="362" x2="90" y2="362" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr6)"/>
+    <text class="msg-label" x="255" y="355">Receipt logged, stock updated</text>
+
+    <text class="cond-note" x="310" y="392">*Partial receipts supported — balance stays open on PO</text>
+    <text class="fr-tag" x="80" y="490">FR_08</text>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DIAGRAM 7 — Log machine downtime (FR_07)
+═══════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 7</div>
+  <div class="diagram-title">Log machine downtime</div>
+  <svg viewBox="0 0 560 530">
+    <defs>
+      <marker id="arr7" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <circle cx="80" cy="26" r="13" class="actor-head"/>
+    <line x1="80" y1="39" x2="80" y2="66" class="actor-body"/>
+    <line x1="57" y1="51" x2="103" y2="51" class="actor-body"/>
+    <line x1="80" y1="66" x2="62" y2="88" class="actor-body"/>
+    <line x1="80" y1="66" x2="98" y2="88" class="actor-body"/>
+    <text class="actor-label" x="80" y="100">Machine</text>
+    <text class="actor-label" x="80" y="114">Operator</text>
+    <rect x="350" y="6" width="170" height="36" rx="8" fill="#1f1f1f" stroke="#185FA5" stroke-width="1.5"/>
+    <text class="sys-label" x="435" y="29" fill="#4a9de0">SPF System</text>
+    <line x1="80" y1="120" x2="80" y2="510" class="lifeline"/>
+    <line x1="435" y1="42" x2="435" y2="510" class="lifeline"/>
+
+    <line x1="80" y1="142" x2="425" y2="142" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr7)"/>
+    <text class="msg-label" x="252" y="135">Log in to SPF platform</text>
+
+    <line x1="80" y1="174" x2="425" y2="174" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr7)"/>
+    <text class="msg-label" x="252" y="167">Navigate to <tspan class="msg-label-bold">Downtime Log</tspan></text>
+
+    <line x1="80" y1="206" x2="425" y2="206" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr7)"/>
+    <text class="msg-label" x="252" y="199">Select machine and shift</text>
+
+    <line x1="80" y1="238" x2="425" y2="238" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr7)"/>
+    <text class="msg-label" x="252" y="231">Enter start time, end time, and reason</text>
+
+    <rect x="457" y="248" width="93" height="52" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="264">Validate all</text>
+    <text class="note-text" x="503" y="277">required fields</text>
+    <text class="cond-note" x="462" y="290">*Block if empty</text>
+    <line x1="457" y1="272" x2="445" y2="272" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="80" y1="316" x2="425" y2="316" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr7)"/>
+    <text class="msg-label" x="252" y="309">Submit downtime entry</text>
+
+    <rect x="457" y="326" width="93" height="52" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="342">Log entry linked</text>
+    <text class="note-text" x="503" y="355">to machine,</text>
+    <text class="note-text" x="503" y="368">shift, operator</text>
+    <line x1="457" y1="350" x2="445" y2="350" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="425" y1="392" x2="90" y2="392" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr7)"/>
+    <text class="msg-label" x="252" y="385">Confirm downtime logged</text>
+
+    <text class="fr-tag" x="80" y="500">FR_07</text>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DIAGRAM 8 — Allocate raw materials to batch (FR_09)
+═══════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 8</div>
+  <div class="diagram-title">Allocate raw materials to a production batch</div>
+  <svg viewBox="0 0 560 510">
+    <defs>
+      <marker id="arr8" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <circle cx="80" cy="26" r="13" class="actor-head"/>
+    <line x1="80" y1="39" x2="80" y2="66" class="actor-body"/>
+    <line x1="57" y1="51" x2="103" y2="51" class="actor-body"/>
+    <line x1="80" y1="66" x2="62" y2="88" class="actor-body"/>
+    <line x1="80" y1="66" x2="98" y2="88" class="actor-body"/>
+    <text class="actor-label" x="80" y="100">Machine</text>
+    <text class="actor-label" x="80" y="114">Operator</text>
+    <rect x="350" y="6" width="170" height="36" rx="8" fill="#1f1f1f" stroke="#185FA5" stroke-width="1.5"/>
+    <text class="sys-label" x="435" y="29" fill="#4a9de0">SPF System</text>
+    <line x1="80" y1="120" x2="80" y2="490" class="lifeline"/>
+    <line x1="435" y1="42" x2="435" y2="490" class="lifeline"/>
+
+    <line x1="80" y1="142" x2="425" y2="142" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr8)"/>
+    <text class="msg-label" x="252" y="135">Log in, navigate to Production Log</text>
+
+    <line x1="80" y1="174" x2="425" y2="174" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr8)"/>
+    <text class="msg-label" x="252" y="167">Select batch to start</text>
+
+    <line x1="80" y1="206" x2="425" y2="206" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr8)"/>
+    <text class="msg-label" x="252" y="199">Select material type and quantity needed</text>
+
+    <rect x="457" y="216" width="93" height="60" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="232">Check available</text>
+    <text class="note-text" x="503" y="245">stock count</text>
+    <text class="note-text" x="503" y="258">*Warn if</text>
+    <text class="note-text" x="503" y="269">insufficient</text>
+    <line x1="457" y1="246" x2="445" y2="246" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="80" y1="292" x2="425" y2="292" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr8)"/>
+    <text class="msg-label" x="252" y="285">Confirm material allocation</text>
+
+    <rect x="457" y="302" width="93" height="60" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="318">Reserve stock</text>
+    <text class="note-text" x="503" y="331">against batch</text>
+    <text class="note-text" x="503" y="344">Reduce available</text>
+    <text class="note-text" x="503" y="355">count immediately</text>
+    <line x1="457" y1="330" x2="445" y2="330" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="425" y1="378" x2="90" y2="378" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr8)"/>
+    <text class="msg-label" x="252" y="371">Allocation confirmed, stock updated</text>
+
+    <text class="fr-tag" x="80" y="480">FR_09</text>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DIAGRAM 9 — Shift handover notes (FR_10)
+═══════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 9</div>
+  <div class="diagram-title">Record shift handover notes</div>
+  <svg viewBox="0 0 560 500">
+    <defs>
+      <marker id="arr9" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <circle cx="80" cy="26" r="13" class="actor-head"/>
+    <line x1="80" y1="39" x2="80" y2="66" class="actor-body"/>
+    <line x1="57" y1="51" x2="103" y2="51" class="actor-body"/>
+    <line x1="80" y1="66" x2="62" y2="88" class="actor-body"/>
+    <line x1="80" y1="66" x2="98" y2="88" class="actor-body"/>
+    <text class="actor-label" x="80" y="100">Machine</text>
+    <text class="actor-label" x="80" y="114">Operator</text>
+    <rect x="350" y="6" width="170" height="36" rx="8" fill="#1f1f1f" stroke="#185FA5" stroke-width="1.5"/>
+    <text class="sys-label" x="435" y="29" fill="#4a9de0">SPF System</text>
+    <line x1="80" y1="120" x2="80" y2="480" class="lifeline"/>
+    <line x1="435" y1="42" x2="435" y2="480" class="lifeline"/>
+
+    <line x1="80" y1="142" x2="425" y2="142" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr9)"/>
+    <text class="msg-label" x="252" y="135">Log in to SPF platform</text>
+
+    <line x1="80" y1="174" x2="425" y2="174" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr9)"/>
+    <text class="msg-label" x="252" y="167">Navigate to <tspan class="msg-label-bold">Shift Handover</tspan></text>
+
+    <line x1="80" y1="206" x2="425" y2="206" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr9)"/>
+    <text class="msg-label" x="252" y="199">Select current shift and production line</text>
+
+    <line x1="80" y1="238" x2="425" y2="238" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr9)"/>
+    <text class="msg-label" x="252" y="231">Write handover note and submit</text>
+
+    <rect x="457" y="248" width="93" height="60" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="264">Save note linked</text>
+    <text class="note-text" x="503" y="277">to shift, line,</text>
+    <text class="note-text" x="503" y="290">outgoing operator</text>
+    <text class="note-text" x="503" y="303">+ timestamp</text>
+    <line x1="457" y1="276" x2="445" y2="276" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="425" y1="326" x2="90" y2="326" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr9)"/>
+    <text class="msg-label" x="252" y="319">Confirm note saved</text>
+
+    <line x1="425" y1="360" x2="90" y2="360" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr9)"/>
+    <text class="msg-label" x="252" y="353">Note visible to incoming operator on same line</text>
+
+    <text class="fr-tag" x="80" y="470">FR_10</text>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DIAGRAM 10 — Log quality inspection (FR_15)
+═══════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 10</div>
+  <div class="diagram-title">Log a quality inspection result</div>
+  <svg viewBox="0 0 560 530">
+    <defs>
+      <marker id="arr10" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <circle cx="80" cy="30" r="13" class="actor-head"/>
+    <line x1="80" y1="43" x2="80" y2="70" class="actor-body"/>
+    <line x1="57" y1="55" x2="103" y2="55" class="actor-body"/>
+    <line x1="80" y1="70" x2="62" y2="92" class="actor-body"/>
+    <line x1="80" y1="70" x2="98" y2="92" class="actor-body"/>
+    <text class="actor-label" x="80" y="106">Owner</text>
+    <rect x="350" y="8" width="170" height="36" rx="8" fill="#1f1f1f" stroke="#C04828" stroke-width="1.5"/>
+    <text class="sys-label" x="435" y="31" fill="#E06040">SPF System</text>
+    <line x1="80" y1="112" x2="80" y2="510" class="lifeline"/>
+    <line x1="435" y1="44" x2="435" y2="510" class="lifeline"/>
+
+    <line x1="80" y1="134" x2="425" y2="134" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr10)"/>
+    <text class="msg-label" x="252" y="127">Login, navigate to Quality Inspections</text>
+
+    <line x1="80" y1="166" x2="425" y2="166" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr10)"/>
+    <text class="msg-label" x="252" y="159">Select production batch to inspect</text>
+
+    <line x1="80" y1="198" x2="425" y2="198" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr10)"/>
+    <text class="msg-label" x="252" y="191">Enter inspection date and result (pass/fail)</text>
+
+    <rect x="457" y="208" width="93" height="44" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="224">Validate fields</text>
+    <text class="note-text" x="503" y="237">and batch link</text>
+    <line x1="457" y1="228" x2="445" y2="228" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="80" y1="268" x2="425" y2="268" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr10)"/>
+    <text class="msg-label" x="252" y="261">If failed — enter defect notes</text>
+
+    <rect x="457" y="278" width="93" height="60" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="294">Log inspection</text>
+    <text class="note-text" x="503" y="307">linked to batch</text>
+    <text class="note-text" x="503" y="320">date and result</text>
+    <text class="note-text" x="503" y="333">+ defect notes</text>
+    <line x1="457" y1="308" x2="445" y2="308" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="425" y1="356" x2="90" y2="356" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr10)"/>
+    <text class="msg-label" x="252" y="349">Confirm inspection logged</text>
+
+    <text class="cond-note" x="300" y="385">*Failed batches flagged — not dispatched until reviewed</text>
+    <text class="fr-tag" x="80" y="500">FR_15</text>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DIAGRAM 11 — Schedule machine maintenance (FR_16)
+═══════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 11</div>
+  <div class="diagram-title">Schedule machine maintenance</div>
+  <svg viewBox="0 0 560 500">
+    <defs>
+      <marker id="arr11" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <circle cx="80" cy="30" r="13" class="actor-head"/>
+    <line x1="80" y1="43" x2="80" y2="70" class="actor-body"/>
+    <line x1="57" y1="55" x2="103" y2="55" class="actor-body"/>
+    <line x1="80" y1="70" x2="62" y2="92" class="actor-body"/>
+    <line x1="80" y1="70" x2="98" y2="92" class="actor-body"/>
+    <text class="actor-label" x="80" y="106">Owner</text>
+    <rect x="350" y="8" width="170" height="36" rx="8" fill="#1f1f1f" stroke="#C04828" stroke-width="1.5"/>
+    <text class="sys-label" x="435" y="31" fill="#E06040">SPF System</text>
+    <line x1="80" y1="112" x2="80" y2="480" class="lifeline"/>
+    <line x1="435" y1="44" x2="435" y2="480" class="lifeline"/>
+
+    <line x1="80" y1="134" x2="425" y2="134" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr11)"/>
+    <text class="msg-label" x="252" y="127">Login, navigate to Maintenance Schedule</text>
+
+    <line x1="80" y1="166" x2="425" y2="166" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr11)"/>
+    <text class="msg-label" x="252" y="159">Select machine and maintenance type</text>
+
+    <line x1="80" y1="198" x2="425" y2="198" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr11)"/>
+    <text class="msg-label" x="252" y="191">Enter scheduled date and submit</text>
+
+    <rect x="457" y="208" width="93" height="60" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="224">Save record</text>
+    <text class="note-text" x="503" y="237">Status set to</text>
+    <text class="note-text-em" x="503" y="250">Pending</text>
+    <text class="note-text" x="503" y="263">*Overdue if past</text>
+    <line x1="457" y1="236" x2="445" y2="236" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="425" y1="286" x2="90" y2="286" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr11)"/>
+    <text class="msg-label" x="252" y="279">Confirm maintenance scheduled</text>
+
+    <line x1="80" y1="318" x2="425" y2="318" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr11)"/>
+    <text class="msg-label" x="252" y="311">View maintenance list (pending/done/overdue)</text>
+
+    <line x1="425" y1="350" x2="90" y2="350" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr11)"/>
+    <text class="msg-label" x="252" y="343">Display maintenance schedule per machine</text>
+
+    <text class="fr-tag" x="80" y="470">FR_16</text>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DIAGRAM 12 — Track finished goods batch (FR_06)
+═══════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 12</div>
+  <div class="diagram-title">Track a finished goods batch (traceability)</div>
+  <svg viewBox="0 0 560 490">
+    <defs>
+      <marker id="arr12" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <circle cx="80" cy="30" r="13" class="actor-head"/>
+    <line x1="80" y1="43" x2="80" y2="70" class="actor-body"/>
+    <line x1="57" y1="55" x2="103" y2="55" class="actor-body"/>
+    <line x1="80" y1="70" x2="62" y2="92" class="actor-body"/>
+    <line x1="80" y1="70" x2="98" y2="92" class="actor-body"/>
+    <text class="actor-label" x="80" y="106">Owner</text>
+    <rect x="350" y="8" width="170" height="36" rx="8" fill="#1f1f1f" stroke="#C04828" stroke-width="1.5"/>
+    <text class="sys-label" x="435" y="31" fill="#E06040">SPF System</text>
+    <line x1="80" y1="112" x2="80" y2="470" class="lifeline"/>
+    <line x1="435" y1="44" x2="435" y2="470" class="lifeline"/>
+
+    <line x1="80" y1="134" x2="425" y2="134" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr12)"/>
+    <text class="msg-label" x="252" y="127">Login, navigate to Finished Goods Batches</text>
+
+    <line x1="80" y1="166" x2="425" y2="166" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr12)"/>
+    <text class="msg-label" x="252" y="159">Search by batch ID or product type</text>
+
+    <rect x="457" y="176" width="93" height="60" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="192">Retrieve batch</text>
+    <text class="note-text" x="503" y="205">linked to raw</text>
+    <text class="note-text" x="503" y="218">material lot,</text>
+    <text class="note-text" x="503" y="229">machine, shift</text>
+    <line x1="457" y1="204" x2="445" y2="204" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="425" y1="252" x2="90" y2="252" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr12)"/>
+    <text class="msg-label" x="252" y="245">Display full production history for batch</text>
+
+    <line x1="80" y1="284" x2="425" y2="284" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr12)"/>
+    <text class="msg-label" x="252" y="277">View linked quality inspection results</text>
+
+    <line x1="425" y1="316" x2="90" y2="316" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr12)"/>
+    <text class="msg-label" x="252" y="309">Display inspection records for batch</text>
+
+    <text class="cond-note" x="280" y="348">*Full trace: raw lot → machine → shift → operator → output</text>
+    <text class="fr-tag" x="80" y="460">FR_06</text>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DIAGRAM 13 — Track FG by warehouse location (FR_11)
+═══════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 13</div>
+  <div class="diagram-title">Assign and locate finished goods in the warehouse</div>
+  <svg viewBox="0 0 560 490">
+    <defs>
+      <marker id="arr13" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <circle cx="80" cy="30" r="13" class="actor-head"/>
+    <line x1="80" y1="43" x2="80" y2="70" class="actor-body"/>
+    <line x1="57" y1="55" x2="103" y2="55" class="actor-body"/>
+    <line x1="80" y1="70" x2="62" y2="92" class="actor-body"/>
+    <line x1="80" y1="70" x2="98" y2="92" class="actor-body"/>
+    <text class="actor-label" x="80" y="106">Owner</text>
+    <rect x="350" y="8" width="170" height="36" rx="8" fill="#1f1f1f" stroke="#C04828" stroke-width="1.5"/>
+    <text class="sys-label" x="435" y="31" fill="#E06040">SPF System</text>
+    <line x1="80" y1="112" x2="80" y2="470" class="lifeline"/>
+    <line x1="435" y1="44" x2="435" y2="470" class="lifeline"/>
+
+    <line x1="80" y1="134" x2="425" y2="134" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr13)"/>
+    <text class="msg-label" x="252" y="127">Login, navigate to Warehouse Locations</text>
+
+    <line x1="80" y1="166" x2="425" y2="166" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr13)"/>
+    <text class="msg-label" x="252" y="159">Select completed batch</text>
+
+    <line x1="80" y1="198" x2="425" y2="198" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr13)"/>
+    <text class="msg-label" x="252" y="191">Assign warehouse location to batch</text>
+
+    <rect x="457" y="208" width="93" height="52" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="224">Save location</text>
+    <text class="note-text" x="503" y="237">linked to batch</text>
+    <text class="note-text" x="503" y="250">and product type</text>
+    <line x1="457" y1="232" x2="445" y2="232" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="425" y1="276" x2="90" y2="276" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr13)"/>
+    <text class="msg-label" x="252" y="269">Confirm location assigned</text>
+
+    <line x1="80" y1="308" x2="425" y2="308" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr13)"/>
+    <text class="msg-label" x="252" y="301">Search stock by product type or batch ID</text>
+
+    <line x1="425" y1="340" x2="90" y2="340" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr13)"/>
+    <text class="msg-label" x="252" y="333">Display location and quantity available</text>
+
+    <text class="fr-tag" x="80" y="460">FR_11</text>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DIAGRAM 14 — Assign FG to sales order (FR_21)
+═══════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 14</div>
+  <div class="diagram-title">Assign finished goods stock to a sales order</div>
+  <svg viewBox="0 0 560 490">
+    <defs>
+      <marker id="arr14" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <circle cx="80" cy="30" r="13" class="actor-head"/>
+    <line x1="80" y1="43" x2="80" y2="70" class="actor-body"/>
+    <line x1="57" y1="55" x2="103" y2="55" class="actor-body"/>
+    <line x1="80" y1="70" x2="62" y2="92" class="actor-body"/>
+    <line x1="80" y1="70" x2="98" y2="92" class="actor-body"/>
+    <text class="actor-label" x="80" y="106">Owner</text>
+    <rect x="350" y="8" width="170" height="36" rx="8" fill="#1f1f1f" stroke="#C04828" stroke-width="1.5"/>
+    <text class="sys-label" x="435" y="31" fill="#E06040">SPF System</text>
+    <line x1="80" y1="112" x2="80" y2="470" class="lifeline"/>
+    <line x1="435" y1="44" x2="435" y2="470" class="lifeline"/>
+
+    <line x1="80" y1="134" x2="425" y2="134" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr14)"/>
+    <text class="msg-label" x="252" y="127">Login, open sales order</text>
+
+    <line x1="80" y1="166" x2="425" y2="166" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr14)"/>
+    <text class="msg-label" x="252" y="159">Select order line to fulfil</text>
+
+    <line x1="80" y1="198" x2="425" y2="198" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr14)"/>
+    <text class="msg-label" x="252" y="191">Pick finished goods batch to allocate</text>
+
+    <rect x="457" y="208" width="93" height="60" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="224">Link batch to</text>
+    <text class="note-text" x="503" y="237">sales order line</text>
+    <text class="note-text" x="503" y="250">Reduce available</text>
+    <text class="note-text" x="503" y="263">stock immediately</text>
+    <line x1="457" y1="236" x2="445" y2="236" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="425" y1="286" x2="90" y2="286" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr14)"/>
+    <text class="msg-label" x="252" y="279">Confirm stock committed to order</text>
+
+    <line x1="425" y1="318" x2="90" y2="318" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr14)"/>
+    <text class="msg-label" x="252" y="311">Display updated available stock count</text>
+
+    <text class="cond-note" x="280" y="350">*Allocation visible on order and inventory records</text>
+    <text class="fr-tag" x="80" y="460">FR_21</text>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DIAGRAM 15 — Schedule workforce shifts (FR_12)
+═══════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 15</div>
+  <div class="diagram-title">Schedule workforce shifts</div>
+  <svg viewBox="0 0 560 510">
+    <defs>
+      <marker id="arr15" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <circle cx="80" cy="30" r="13" class="actor-head"/>
+    <line x1="80" y1="43" x2="80" y2="70" class="actor-body"/>
+    <line x1="57" y1="55" x2="103" y2="55" class="actor-body"/>
+    <line x1="80" y1="70" x2="62" y2="92" class="actor-body"/>
+    <line x1="80" y1="70" x2="98" y2="92" class="actor-body"/>
+    <text class="actor-label" x="80" y="106">Owner</text>
+    <rect x="350" y="8" width="170" height="36" rx="8" fill="#1f1f1f" stroke="#C04828" stroke-width="1.5"/>
+    <text class="sys-label" x="435" y="31" fill="#E06040">SPF System</text>
+    <line x1="80" y1="112" x2="80" y2="490" class="lifeline"/>
+    <line x1="435" y1="44" x2="435" y2="490" class="lifeline"/>
+
+    <line x1="80" y1="134" x2="425" y2="134" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr15)"/>
+    <text class="msg-label" x="252" y="127">Login, navigate to Workforce Schedule</text>
+
+    <line x1="80" y1="166" x2="425" y2="166" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr15)"/>
+    <text class="msg-label" x="252" y="159">Select production line and time block</text>
+
+    <line x1="80" y1="198" x2="425" y2="198" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr15)"/>
+    <text class="msg-label" x="252" y="191">Assign employee and role to shift</text>
+
+    <rect x="457" y="208" width="93" height="60" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="224">Check for</text>
+    <text class="note-text" x="503" y="237">double-assignment</text>
+    <text class="note-text" x="503" y="250">*Flag conflict</text>
+    <text class="note-text" x="503" y="263">before saving</text>
+    <line x1="457" y1="236" x2="445" y2="236" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="80" y1="284" x2="425" y2="284" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr15)"/>
+    <text class="msg-label" x="252" y="277">Confirm and save shift assignment</text>
+
+    <rect x="457" y="294" width="93" height="44" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="310">Save record:</text>
+    <text class="note-text" x="503" y="323">role, line, block</text>
+    <line x1="457" y1="314" x2="445" y2="314" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="425" y1="354" x2="90" y2="354" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr15)"/>
+    <text class="msg-label" x="252" y="347">Shift visible to assigned employee immediately</text>
+
+    <text class="fr-tag" x="80" y="480">FR_12</text>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DIAGRAM 16 — Review supplier performance (FR_17)
+═══════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 16</div>
+  <div class="diagram-title">Review supplier delivery performance</div>
+  <svg viewBox="0 0 560 470">
+    <defs>
+      <marker id="arr16" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <circle cx="80" cy="30" r="13" class="actor-head"/>
+    <line x1="80" y1="43" x2="80" y2="70" class="actor-body"/>
+    <line x1="57" y1="55" x2="103" y2="55" class="actor-body"/>
+    <line x1="80" y1="70" x2="62" y2="92" class="actor-body"/>
+    <line x1="80" y1="70" x2="98" y2="92" class="actor-body"/>
+    <text class="actor-label" x="80" y="106">Owner</text>
+    <rect x="350" y="8" width="170" height="36" rx="8" fill="#1f1f1f" stroke="#C04828" stroke-width="1.5"/>
+    <text class="sys-label" x="435" y="31" fill="#E06040">SPF System</text>
+    <line x1="80" y1="112" x2="80" y2="450" class="lifeline"/>
+    <line x1="435" y1="44" x2="435" y2="450" class="lifeline"/>
+
+    <line x1="80" y1="134" x2="425" y2="134" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr16)"/>
+    <text class="msg-label" x="252" y="127">Login, navigate to Supplier Performance</text>
+
+    <line x1="80" y1="166" x2="425" y2="166" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr16)"/>
+    <text class="msg-label" x="252" y="159">Select supplier and date range</text>
+
+    <rect x="457" y="176" width="93" height="60" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="192">Retrieve delivery</text>
+    <text class="note-text" x="503" y="205">history: ordered</text>
+    <text class="note-text" x="503" y="218">qty, received qty,</text>
+    <text class="note-text" x="503" y="229">dates, lateness</text>
+    <line x1="457" y1="204" x2="445" y2="204" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="425" y1="252" x2="90" y2="252" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr16)"/>
+    <text class="msg-label" x="252" y="245">Display history with late and partial flags</text>
+
+    <line x1="80" y1="284" x2="425" y2="284" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr16)"/>
+    <text class="msg-label" x="252" y="277">Review and make supplier decisions</text>
+
+    <text class="cond-note" x="265" y="320">*Late and partial deliveries highlighted in supplier record</text>
+    <text class="fr-tag" x="80" y="440">FR_17</text>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DIAGRAM 17 — Generate operational reports (FR_14)
+═══════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 17</div>
+  <div class="diagram-title">Generate an operational report</div>
+  <svg viewBox="0 0 560 490">
+    <defs>
+      <marker id="arr17" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <circle cx="80" cy="30" r="13" class="actor-head"/>
+    <line x1="80" y1="43" x2="80" y2="70" class="actor-body"/>
+    <line x1="57" y1="55" x2="103" y2="55" class="actor-body"/>
+    <line x1="80" y1="70" x2="62" y2="92" class="actor-body"/>
+    <line x1="80" y1="70" x2="98" y2="92" class="actor-body"/>
+    <text class="actor-label" x="80" y="106">Owner</text>
+    <rect x="350" y="8" width="170" height="36" rx="8" fill="#1f1f1f" stroke="#C04828" stroke-width="1.5"/>
+    <text class="sys-label" x="435" y="31" fill="#E06040">SPF System</text>
+    <line x1="80" y1="112" x2="80" y2="470" class="lifeline"/>
+    <line x1="435" y1="44" x2="435" y2="470" class="lifeline"/>
+
+    <line x1="80" y1="134" x2="425" y2="134" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr17)"/>
+    <text class="msg-label" x="252" y="127">Login, navigate to Reports</text>
+
+    <line x1="80" y1="166" x2="425" y2="166" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr17)"/>
+    <text class="msg-label" x="252" y="159">Select report type (yield / cost / delivery)</text>
+
+    <line x1="80" y1="198" x2="425" y2="198" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr17)"/>
+    <text class="msg-label" x="252" y="191">Set date range filter and run report</text>
+
+    <rect x="457" y="208" width="93" height="60" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="224">Execute stored</text>
+    <text class="note-text" x="503" y="237">procedure for</text>
+    <text class="note-text" x="503" y="250">selected report</text>
+    <text class="note-text" x="503" y="263">type</text>
+    <line x1="457" y1="236" x2="445" y2="236" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="425" y1="286" x2="90" y2="286" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr17)"/>
+    <text class="msg-label" x="252" y="279">Display report results</text>
+
+    <line x1="80" y1="318" x2="425" y2="318" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr17)"/>
+    <text class="msg-label" x="252" y="311">Export report as file</text>
+
+    <line x1="425" y1="350" x2="90" y2="350" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr17)"/>
+    <text class="msg-label" x="252" y="343">Download report file</text>
+
+    <text class="fr-tag" x="80" y="460">FR_14</text>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DIAGRAM 18 — Record returned goods (FR_25)
+═══════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 18</div>
+  <div class="diagram-title">Record a returned goods entry</div>
+  <svg viewBox="0 0 560 510">
+    <defs>
+      <marker id="arr18" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <circle cx="80" cy="30" r="13" class="actor-head"/>
+    <line x1="80" y1="43" x2="80" y2="70" class="actor-body"/>
+    <line x1="57" y1="55" x2="103" y2="55" class="actor-body"/>
+    <line x1="80" y1="70" x2="62" y2="92" class="actor-body"/>
+    <line x1="80" y1="70" x2="98" y2="92" class="actor-body"/>
+    <text class="actor-label" x="80" y="106">Owner</text>
+    <rect x="350" y="8" width="170" height="36" rx="8" fill="#1f1f1f" stroke="#C04828" stroke-width="1.5"/>
+    <text class="sys-label" x="435" y="31" fill="#E06040">SPF System</text>
+    <line x1="80" y1="112" x2="80" y2="490" class="lifeline"/>
+    <line x1="435" y1="44" x2="435" y2="490" class="lifeline"/>
+
+    <line x1="80" y1="134" x2="425" y2="134" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr18)"/>
+    <text class="msg-label" x="252" y="127">Login, navigate to Returns</text>
+
+    <line x1="80" y1="166" x2="425" y2="166" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr18)"/>
+    <text class="msg-label" x="252" y="159">Select originating sales order</text>
+
+    <line x1="80" y1="198" x2="425" y2="198" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr18)"/>
+    <text class="msg-label" x="252" y="191">Enter product, quantity, and return reason</text>
+
+    <line x1="80" y1="230" x2="425" y2="230" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr18)"/>
+    <text class="msg-label" x="252" y="223">Confirm and submit return</text>
+
+    <rect x="457" y="240" width="93" height="60" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="256">Log return linked</text>
+    <text class="note-text" x="503" y="269">to order, product,</text>
+    <text class="note-text" x="503" y="282">qty, and reason</text>
+    <text class="note-text" x="503" y="295">+ timestamp</text>
+    <line x1="457" y1="268" x2="445" y2="268" stroke="#444" stroke-width="0.8"/>
+
+    <rect x="457" y="312" width="93" height="44" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="328">Adjust inventory</text>
+    <text class="note-text" x="503" y="341">after confirmation</text>
+    <line x1="457" y1="334" x2="445" y2="334" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="425" y1="372" x2="90" y2="372" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr18)"/>
+    <text class="msg-label" x="252" y="365">Confirm return logged, stock adjusted</text>
+
+    <text class="fr-tag" x="80" y="480">FR_25</text>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DIAGRAM 19 — Manage client accounts (FR_28)
+═══════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 19</div>
+  <div class="diagram-title">Create and manage a client account</div>
+  <svg viewBox="0 0 560 500">
+    <defs>
+      <marker id="arr19" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <circle cx="80" cy="30" r="13" class="actor-head"/>
+    <line x1="80" y1="43" x2="80" y2="70" class="actor-body"/>
+    <line x1="57" y1="55" x2="103" y2="55" class="actor-body"/>
+    <line x1="80" y1="70" x2="62" y2="92" class="actor-body"/>
+    <line x1="80" y1="70" x2="98" y2="92" class="actor-body"/>
+    <text class="actor-label" x="80" y="106">Owner</text>
+    <rect x="350" y="8" width="170" height="36" rx="8" fill="#1f1f1f" stroke="#C04828" stroke-width="1.5"/>
+    <text class="sys-label" x="435" y="31" fill="#E06040">SPF System</text>
+    <line x1="80" y1="112" x2="80" y2="480" class="lifeline"/>
+    <line x1="435" y1="44" x2="435" y2="480" class="lifeline"/>
+
+    <line x1="80" y1="134" x2="425" y2="134" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr19)"/>
+    <text class="msg-label" x="252" y="127">Login, navigate to Clients</text>
+
+    <line x1="80" y1="166" x2="425" y2="166" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr19)"/>
+    <text class="msg-label" x="252" y="159">Click <tspan class="msg-label-bold">New Client</tspan></text>
+
+    <line x1="80" y1="198" x2="425" y2="198" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr19)"/>
+    <text class="msg-label" x="252" y="191">Enter name, contact details, account type</text>
+
+    <rect x="457" y="208" width="93" height="52" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="224">Validate fields</text>
+    <text class="note-text" x="503" y="237">Check for</text>
+    <text class="note-text" x="503" y="250">duplicate entry</text>
+    <line x1="457" y1="232" x2="445" y2="232" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="80" y1="276" x2="425" y2="276" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr19)"/>
+    <text class="msg-label" x="252" y="269">Save client record</text>
+
+    <line x1="425" y1="308" x2="90" y2="308" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr19)"/>
+    <text class="msg-label" x="252" y="301">Confirm client created, linked to orders</text>
+
+    <line x1="80" y1="340" x2="425" y2="340" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr19)"/>
+    <text class="msg-label" x="252" y="333">Edit existing client details</text>
+
+    <line x1="425" y1="372" x2="90" y2="372" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr19)"/>
+    <text class="msg-label" x="252" y="365">Confirm update saved</text>
+
+    <text class="fr-tag" x="80" y="470">FR_28</text>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DIAGRAM 20 — Low stock alert (FR_22)
+═══════════════════════════════════════════════════════ -->
+<div class="diagram-card">
+  <div class="diagram-label">SPF Sequence Diagram 20</div>
+  <div class="diagram-title">Receive and act on a low stock alert</div>
+  <svg viewBox="0 0 560 530">
+    <defs>
+      <marker id="arr20" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <circle cx="80" cy="30" r="13" class="actor-head"/>
+    <line x1="80" y1="43" x2="80" y2="70" class="actor-body"/>
+    <line x1="57" y1="55" x2="103" y2="55" class="actor-body"/>
+    <line x1="80" y1="70" x2="62" y2="92" class="actor-body"/>
+    <line x1="80" y1="70" x2="98" y2="92" class="actor-body"/>
+    <text class="actor-label" x="80" y="106">Owner</text>
+    <rect x="350" y="8" width="170" height="36" rx="8" fill="#1f1f1f" stroke="#C04828" stroke-width="1.5"/>
+    <text class="sys-label" x="435" y="31" fill="#E06040">SPF System</text>
+    <line x1="80" y1="112" x2="80" y2="510" class="lifeline"/>
+    <line x1="435" y1="44" x2="435" y2="510" class="lifeline"/>
+
+    <rect x="457" y="120" width="93" height="60" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="136">Stock falls below</text>
+    <text class="note-text" x="503" y="149">minimum threshold</text>
+    <text class="note-text-em" x="503" y="162">Alert logged</text>
+    <text class="note-text" x="503" y="175">automatically</text>
+    <line x1="457" y1="150" x2="445" y2="150" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="80" y1="196" x2="425" y2="196" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr20)"/>
+    <text class="msg-label" x="252" y="189">Login — alert visible on dashboard</text>
+
+    <line x1="425" y1="228" x2="90" y2="228" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr20)"/>
+    <text class="msg-label" x="252" y="221">Display low-stock alert with material and qty</text>
+
+    <line x1="80" y1="260" x2="425" y2="260" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr20)"/>
+    <text class="msg-label" x="252" y="253">Navigate to Purchase Orders</text>
+
+    <line x1="80" y1="292" x2="425" y2="292" stroke="#aaa" stroke-width="1" fill="none" marker-end="url(#arr20)"/>
+    <text class="msg-label" x="252" y="285">Raise PO — reorder qty pre-filled (FR_20)</text>
+
+    <rect x="457" y="302" width="93" height="52" rx="5" class="sys-note"/>
+    <text class="note-text" x="503" y="318">Create PO with</text>
+    <text class="note-text" x="503" y="331">default reorder</text>
+    <text class="note-text" x="503" y="344">quantity</text>
+    <line x1="457" y1="326" x2="445" y2="326" stroke="#444" stroke-width="0.8"/>
+
+    <line x1="425" y1="370" x2="90" y2="370" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="5 3" marker-end="url(#arr20)"/>
+    <text class="msg-label" x="252" y="363">Confirm PO raised, alert cleared</text>
+
+    <text class="cond-note" x="270" y="400">*Threshold is configurable per material (FR_20)</text>
+    <text class="fr-tag" x="80" y="500">FR_22</text>
+  </svg>
+</div>
+
+</div><!-- end .grid -->
+
+<footer>
+  Swan Paper Fabrics — SPF-OMS · Sequence Diagrams 5–20 · FR_05 to FR_28
+</footer>
+
+</body>
+</html>
