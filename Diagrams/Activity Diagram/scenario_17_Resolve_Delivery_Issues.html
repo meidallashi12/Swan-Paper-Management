@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resolve Delivery Issues — SPF-OMS Activity Diagram</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f5f0;
+  --ink: #1a1814;
+  --mid: #8a8478;
+  --line: #d4cfc5;
+  --card: #ffffff;
+  --accent: #c4993a;
+  --accent2: #3a6bc4;
+  --serif: 'IBM Plex Sans', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  min-height: 100vh;
+  padding: 3rem 2rem 5rem;
+}
+.page-header {
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 1.2rem;
+}
+.page-tag {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+.page-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 0.7rem;
+}
+.page-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-family: var(--mono);
+  color: var(--mid);
+}
+.meta-item strong { color: var(--ink); font-weight: 500; }
+.diagram-card {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  overflow-x: auto;
+}
+.diagram-card svg {
+  display: block;
+  margin: 0 auto;
+}
+.legend {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  padding: 0.9rem 1.1rem;
+  background: #faf8f4;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  font-size: 0.7rem;
+  font-family: var(--mono);
+  color: var(--mid);
+}
+.legend-item { display: flex; align-items: center; gap: 0.5rem; }
+.lg-circle { width:14px;height:14px;border-radius:50%;background:var(--ink);flex-shrink:0; }
+.lg-ring { width:16px;height:16px;border-radius:50%;border:2.5px solid var(--ink);background:transparent;position:relative;flex-shrink:0; }
+.lg-ring::after { content:''; position:absolute; inset:3px; border-radius:50%; background:var(--ink); }
+.lg-diamond { width:13px;height:13px;background:var(--card);border:2px solid var(--ink);transform:rotate(45deg);flex-shrink:0; }
+.lg-rect { width:20px;height:11px;background:var(--ink);border-radius:3px;flex-shrink:0; }
+.lg-rect-y { width:20px;height:11px;background:#fdf6e3;border:1.5px solid var(--accent);border-radius:3px;flex-shrink:0; }
+.lg-rect-b { width:20px;height:11px;background:#eef3ff;border:1.5px solid var(--accent2);border-radius:3px;flex-shrink:0; }
+.uml-label {
+  max-width: 700px;
+  margin: 1.5rem auto 0;
+  font-size: 0.65rem;
+  font-family: var(--mono);
+  color: var(--mid);
+  text-align: right;
+  letter-spacing: 0.05em;
+}
+</style>
+</head>
+<body>
+<div class="page-header">
+  <div class="page-tag">SPF-OMS · Activity Diagram · UML 2.5</div>
+  <h1 class="page-title">Resolve Delivery Issues</h1>
+  <div class="page-meta">
+    <div class="meta-item">Role: <strong>Founder / Owner</strong></div>
+    <div class="meta-item">User Stories: <strong>#30 View Unresolved Delivery Issues</strong></div>
+  </div>
+</div>
+<div class="diagram-card">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 1036" width="620" height="1036"
+    font-family="'IBM Plex Sans',sans-serif" font-size="12">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L0,8 L10,4 z" fill="#1a1814"/>
+    </marker>
+    <marker id="arr-alt" markerWidth="10" markerHeight="10" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L0,8 L10,4 z" fill="#c4993a"/>
+    </marker>
+    <marker id="arr-note" markerWidth="10" markerHeight="10" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L0,8 L10,4 z" fill="#3a6bc4"/>
+    </marker>
+  </defs>
+  <!-- background -->
+  <rect width="620" height="1036" fill="#f7f5f0"/>
+<circle cx="310" cy="50" r="13" fill="#1a1814"/><line x1="310" y1="72" x2="310" y2="98" stroke="#1a1814" stroke-width="1.8" marker-end="url(#arr)"/><rect x="125" y="104" width="370" height="36" rx="10" fill="#1a1814" stroke="#1a1814" stroke-width="1.5"/><text x="310" y="126.5" text-anchor="middle" font-size="11.5" font-weight="600" fill="#f8f6f1">Log in — navigate to Delivery Issues section</text><line x1="310" y1="144" x2="310" y2="170" stroke="#1a1814" stroke-width="1.8" marker-end="url(#arr)"/><polygon points="310,158 374.8,194 310,230 245.2,194" fill="#ffffff" stroke="#1a1814" stroke-width="2"/><text x="318" y="244" font-size="10" fill="#1a1814" font-style="italic">[unresolved issues exist]</text><line x1="375" y1="194" x2="421" y2="194" stroke="#c4993a" stroke-width="1.5" marker-end="url(#arr-alt)"/><text x="381" y="188" font-size="10" fill="#c4993a" font-style="italic">[no unresolved issues]</text><rect x="425" y="174" width="150" height="40" rx="6" fill="#fdf6e3" stroke="#c4993a" stroke-width="1.2"/><text x="500" y="192" text-anchor="middle" font-size="9.5" fill="#1a1814">Display: no open</text><text x="500" y="206" text-anchor="middle" font-size="9.5" fill="#1a1814">issues</text><line x1="310" y1="216" x2="310" y2="242" stroke="#1a1814" stroke-width="1.8" marker-end="url(#arr)"/><text x="318" y="234" font-size="10" fill="#1a1814" font-style="italic">[unresolved issues exist]</text><rect x="125" y="243" width="370" height="46" rx="10" fill="#1a1814" stroke="#1a1814" stroke-width="1.5"/><text x="310" y="263" text-anchor="middle" font-size="11.5" font-weight="600" fill="#f8f6f1">View list: order ref, client, driver note,</text><text x="310" y="278" text-anchor="middle" font-size="11.5" font-weight="600" fill="#f8f6f1">date flagged</text><line x1="310" y1="288" x2="310" y2="314" stroke="#1a1814" stroke-width="1.8" marker-end="url(#arr)"/><rect x="125" y="320" width="370" height="36" rx="10" fill="#1a1814" stroke="#1a1814" stroke-width="1.5"/><text x="310" y="342.5" text-anchor="middle" font-size="11.5" font-weight="600" fill="#f8f6f1">Filter list by date range or client</text><line x1="310" y1="360" x2="310" y2="386" stroke="#1a1814" stroke-width="1.8" marker-end="url(#arr)"/><rect x="125" y="387" width="370" height="46" rx="10" fill="#1a1814" stroke="#1a1814" stroke-width="1.5"/><text x="310" y="407" text-anchor="middle" font-size="11.5" font-weight="600" fill="#f8f6f1">Select issue — review full delivery detail &amp;</text><text x="310" y="422" text-anchor="middle" font-size="11.5" font-weight="600" fill="#f8f6f1">driver note</text><line x1="310" y1="432" x2="310" y2="458" stroke="#1a1814" stroke-width="1.8" marker-end="url(#arr)"/><rect x="125" y="464" width="370" height="36" rx="10" fill="#1a1814" stroke="#1a1814" stroke-width="1.5"/><text x="310" y="486.5" text-anchor="middle" font-size="11.5" font-weight="600" fill="#f8f6f1">Contact client to resolve dispute</text><line x1="310" y1="504" x2="310" y2="530" stroke="#1a1814" stroke-width="1.8" marker-end="url(#arr)"/><rect x="125" y="536" width="370" height="36" rx="10" fill="#1a1814" stroke="#1a1814" stroke-width="1.5"/><text x="310" y="558.5" text-anchor="middle" font-size="11.5" font-weight="600" fill="#f8f6f1">Mark issue as Resolved — enter closing note</text><line x1="310" y1="576" x2="310" y2="602" stroke="#1a1814" stroke-width="1.8" marker-end="url(#arr)"/><polygon points="310,590 374.8,626 310,662 245.2,626" fill="#ffffff" stroke="#1a1814" stroke-width="2"/><text x="318" y="676" font-size="10" fill="#1a1814" font-style="italic">[resolution confirmed]</text><line x1="375" y1="626" x2="421" y2="626" stroke="#c4993a" stroke-width="1.5" marker-end="url(#arr-alt)"/><text x="381" y="620" font-size="10" fill="#c4993a" font-style="italic">[marked resolved in error]</text><rect x="425" y="606" width="150" height="40" rx="6" fill="#fdf6e3" stroke="#c4993a" stroke-width="1.2"/><text x="500" y="624" text-anchor="middle" font-size="9.5" fill="#1a1814">Reopen issue for</text><text x="500" y="638" text-anchor="middle" font-size="9.5" fill="#1a1814">further action</text><line x1="310" y1="648" x2="310" y2="674" stroke="#1a1814" stroke-width="1.8" marker-end="url(#arr)"/><text x="318" y="666" font-size="10" fill="#1a1814" font-style="italic">[resolution confirmed]</text><rect x="125" y="675" width="370" height="46" rx="10" fill="#eef3ff" stroke="#3a6bc4" stroke-width="1.5"/><text x="310" y="695" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1a1814">System records resolution date, note &amp;</text><text x="310" y="710" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1a1814">archives issue</text><line x1="310" y1="720" x2="310" y2="746" stroke="#1a1814" stroke-width="1.8" marker-end="url(#arr)"/><rect x="125" y="747" width="370" height="46" rx="10" fill="#1a1814" stroke="#1a1814" stroke-width="1.5"/><text x="310" y="767" text-anchor="middle" font-size="11.5" font-weight="600" fill="#f8f6f1">Resolved issues remain accessible for audit</text><text x="310" y="782" text-anchor="middle" font-size="11.5" font-weight="600" fill="#f8f6f1">purposes</text><line x1="310" y1="792" x2="310" y2="818" stroke="#1a1814" stroke-width="1.8" marker-end="url(#arr)"/><rect x="125" y="819" width="370" height="46" rx="10" fill="#1a1814" stroke="#1a1814" stroke-width="1.5"/><text x="310" y="839" text-anchor="middle" font-size="11.5" font-weight="600" fill="#f8f6f1">All delivery disputes closed with full</text><text x="310" y="854" text-anchor="middle" font-size="11.5" font-weight="600" fill="#f8f6f1">resolution record</text><line x1="310" y1="864" x2="310" y2="890" stroke="#1a1814" stroke-width="1.8" marker-end="url(#arr)"/>
+  <circle cx="310" cy="914" r="17" fill="none" stroke="#1a1814" stroke-width="2.5"/>
+  <circle cx="310" cy="914" r="11" fill="#1a1814"/></svg>
+</div>
+<div class="legend">
+  <div class="legend-item"><div class="lg-circle"></div> Initial Node</div>
+  <div class="legend-item"><div class="lg-ring"></div> Activity Final Node</div>
+  <div class="legend-item"><div class="lg-rect"></div> Action</div>
+  <div class="legend-item"><div class="lg-diamond"></div> Decision / Merge</div>
+  <div class="legend-item"><div class="lg-rect-y"></div> Alternative Path</div>
+  <div class="legend-item"><div class="lg-rect-b"></div> System-Generated Event</div>
+</div>
+<div class="uml-label">Conforms to UML 2.5 Activity Diagram notation · Guards shown outside decision nodes</div>
+</body>
+</html>
