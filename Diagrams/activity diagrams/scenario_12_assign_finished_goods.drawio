@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/><mxCell id="1" parent="0"/>
+    <mxCell id="2" value="" style="shape=pool;startSize=0;horizontal=1;childLayout=stackLayout;horizontalStack=1;resizeParent=1;collapsible=0;marginBottom=0;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="60" y="40" width="1000" height="1400" as="geometry"/>
+    </mxCell>
+    <mxCell id="3" value="Owner" style="swimlane;startSize=30;horizontal=0;fillColor=#ffe6cc;strokeColor=#d6b656;" vertex="1" parent="2">
+      <mxGeometry x="0" y="0" width="500" height="1400" as="geometry"/>
+    </mxCell>
+    <mxCell id="4" value="System" style="swimlane;startSize=30;horizontal=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="2">
+      <mxGeometry x="500" y="0" width="500" height="1400" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="10" value="" style="ellipse;aspect=fixed;fillColor=#000000;" vertex="1" parent="3">
+      <mxGeometry x="220" y="50" width="30" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="11" value="Log into SPF-OMS" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="150" y="120" width="200" height="40" as="geometry"/>
+    </mxCell>
+    <mxCell id="12" value="Navigate to 'Sales Orders'" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="150" y="200" width="200" height="40" as="geometry"/>
+    </mxCell>
+    <mxCell id="13" value="Open sales order with status: Processing" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="140" y="280" width="210" height="50" as="geometry"/>
+    </mxCell>
+    <mxCell id="14" value="Select 'Allocate Stock'" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="150" y="370" width="200" height="40" as="geometry"/>
+    </mxCell>
+    <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="10" target="11" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="11" target="12" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="12" target="13" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="13" target="14" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- System: Display batches -->
+    <mxCell id="20" value="Display available finished goods batches for required product type; exclude fully allocated batches" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="130" y="370" width="240" height="70" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec1" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="14" target="20" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- Actor: Select batch -->
+    <mxCell id="15" value="Select batch(es) to assign to the order" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="140" y="500" width="210" height="50" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec2" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="20" target="15" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- System: Quantity match -->
+    <mxCell id="21" value="Allocated quantity matches order requirement?" style="rhombus;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="148" y="600" width="204" height="70" as="geometry"/>
+    </mxCell>
+    <mxCell id="22" value="Warn Owner; allow partial allocation" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="360" y="600" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec3" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="15" target="21" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ec4" value="No" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="21" target="22" parent="4"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- Actor: Confirm -->
+    <mxCell id="16" value="Confirm allocation" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="150" y="730" width="200" height="40" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec5" value="Yes" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="21" target="16" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ec6" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="22" target="16" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- System: Link and reduce -->
+    <mxCell id="23" value="Link batch to sales order line; reduce available stock immediately" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="140" y="810" width="220" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="24" value="Allocated batches visible in sales order record and finished goods inventory" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="130" y="920" width="240" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec7" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="16" target="23" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ec8" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="23" target="24" parent="4"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <mxCell id="99" value="" style="ellipse;aspect=fixed;fillColor=#000000;strokeColor=#ffffff;strokeWidth=3;" vertex="1" parent="4">
+      <mxGeometry x="220" y="1270" width="30" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec9" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="24" target="99" parent="4"><mxGeometry relative="1" as="geometry"/></mxCell>
+  </root>
+</mxGraphModel>

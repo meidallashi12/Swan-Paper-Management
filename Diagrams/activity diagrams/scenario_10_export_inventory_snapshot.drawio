@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/><mxCell id="1" parent="0"/>
+    <mxCell id="2" value="" style="shape=pool;startSize=0;horizontal=1;childLayout=stackLayout;horizontalStack=1;resizeParent=1;collapsible=0;marginBottom=0;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="60" y="40" width="1000" height="1300" as="geometry"/>
+    </mxCell>
+    <mxCell id="3" value="Owner" style="swimlane;startSize=30;horizontal=0;fillColor=#ffe6cc;strokeColor=#d6b656;" vertex="1" parent="2">
+      <mxGeometry x="0" y="0" width="500" height="1300" as="geometry"/>
+    </mxCell>
+    <mxCell id="4" value="System" style="swimlane;startSize=30;horizontal=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="2">
+      <mxGeometry x="500" y="0" width="500" height="1300" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="10" value="" style="ellipse;aspect=fixed;fillColor=#000000;" vertex="1" parent="3">
+      <mxGeometry x="220" y="50" width="30" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="11" value="Log into SPF-OMS" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="150" y="120" width="200" height="40" as="geometry"/>
+    </mxCell>
+    <mxCell id="12" value="Navigate to 'Inventory'" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="150" y="200" width="200" height="40" as="geometry"/>
+    </mxCell>
+    <mxCell id="13" value="Select 'Export Snapshot'; set snapshot date (default: today)" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="140" y="280" width="210" height="50" as="geometry"/>
+    </mxCell>
+    <mxCell id="14" value="Review scope of export (all materials and finished goods)" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="140" y="370" width="210" height="50" as="geometry"/>
+    </mxCell>
+    <mxCell id="15" value="Optionally filter by material type" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="150" y="460" width="200" height="40" as="geometry"/>
+    </mxCell>
+    <mxCell id="16" value="Click Download" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="150" y="540" width="200" height="40" as="geometry"/>
+    </mxCell>
+    <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="10" target="11" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="11" target="12" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="12" target="13" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="13" target="14" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="14" target="15" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="15" target="16" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- System: Data exists? -->
+    <mxCell id="20" value="Inventory data exists for selected date?" style="rhombus;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="155" y="540" width="190" height="70" as="geometry"/>
+    </mxCell>
+    <mxCell id="21" value="Notify Owner; suggest nearest valid date" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="350" y="540" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec1" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="16" target="20" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ec2" value="No" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="20" target="21" parent="4"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ec3" value="" style="edgeStyle=orthogonalEdgeStyle;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" source="21" target="13" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- System: Compile and produce CSV -->
+    <mxCell id="22" value="Compile inventory data as at selected date" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="140" y="680" width="220" height="50" as="geometry"/>
+    </mxCell>
+    <mxCell id="23" value="Produce CSV (material name, unit of measure, quantity, low-stock status)" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="140" y="780" width="220" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="24" value="Make CSV file available for immediate download" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="140" y="890" width="220" height="50" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec4" value="Yes" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="20" target="22" parent="4"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ec5" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="22" target="23" parent="4"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ec6" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="23" target="24" parent="4"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <mxCell id="99" value="" style="ellipse;aspect=fixed;fillColor=#000000;strokeColor=#ffffff;strokeWidth=3;" vertex="1" parent="4">
+      <mxGeometry x="220" y="1160" width="30" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec7" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="24" target="99" parent="4"><mxGeometry relative="1" as="geometry"/></mxCell>
+  </root>
+</mxGraphModel>

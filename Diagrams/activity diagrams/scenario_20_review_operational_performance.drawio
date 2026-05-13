@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/><mxCell id="1" parent="0"/>
+    <mxCell id="2" value="" style="shape=pool;startSize=0;horizontal=1;childLayout=stackLayout;horizontalStack=1;resizeParent=1;collapsible=0;marginBottom=0;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="60" y="40" width="1000" height="2200" as="geometry"/>
+    </mxCell>
+    <mxCell id="3" value="Owner" style="swimlane;startSize=30;horizontal=0;fillColor=#ffe6cc;strokeColor=#d6b656;" vertex="1" parent="2">
+      <mxGeometry x="0" y="0" width="500" height="2200" as="geometry"/>
+    </mxCell>
+    <mxCell id="4" value="System" style="swimlane;startSize=30;horizontal=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="2">
+      <mxGeometry x="500" y="0" width="500" height="2200" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="10" value="" style="ellipse;aspect=fixed;fillColor=#000000;" vertex="1" parent="3">
+      <mxGeometry x="220" y="50" width="30" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="11" value="Log into SPF-OMS" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="150" y="120" width="200" height="40" as="geometry"/>
+    </mxCell>
+    <mxCell id="12" value="Navigate to 'Daily Summary'" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="150" y="200" width="200" height="40" as="geometry"/>
+    </mxCell>
+    <mxCell id="13" value="Select date to review" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="150" y="280" width="200" height="40" as="geometry"/>
+    </mxCell>
+    <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="10" target="11" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="11" target="12" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="12" target="13" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- System: Data exists for date? -->
+    <mxCell id="20" value="Production data exists for selected date?" style="rhombus;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="148" y="360" width="204" height="70" as="geometry"/>
+    </mxCell>
+    <mxCell id="21" value="Display empty state message" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="360" y="370" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="22" value="Display total output, total downtime, completed batches broken down by production line" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="120" y="500" width="260" height="70" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec1" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="13" target="20" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ec2" value="No" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="20" target="21" parent="4"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ec3" value="" style="edgeStyle=orthogonalEdgeStyle;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" source="21" target="13" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ec4" value="Yes" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="20" target="22" parent="4"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- Actor: Drill into line -->
+    <mxCell id="14" value="Drill into specific production line for full detail" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="140" y="640" width="210" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="15" value="Navigate to 'Production Line Utilisation'" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="140" y="740" width="210" height="50" as="geometry"/>
+    </mxCell>
+    <mxCell id="16" value="Select production line; set date range to past month" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="140" y="830" width="210" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec5" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="22" target="14" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="14" target="15" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="15" target="16" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- System: Calculate utilisation -->
+    <mxCell id="23" value="Calculate and display utilisation (% of scheduled hours vs actual output hours)" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="120" y="940" width="260" height="70" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec6" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="16" target="23" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- Actor: Switch lines and export -->
+    <mxCell id="17" value="Switch between lines to compare utilisation" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="140" y="1080" width="210" height="50" as="geometry"/>
+    </mxCell>
+    <mxCell id="18" value="Export utilisation data for selected period" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="140" y="1170" width="210" height="50" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec7" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="23" target="17" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e17" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="17" target="18" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- System: Generate utilisation export -->
+    <mxCell id="24" value="Generate utilisation export file" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="150" y="1250" width="200" height="50" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec8" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="18" target="24" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- Actor: Navigate to Reports -->
+    <mxCell id="19" value="Navigate to 'Reports'; select Yield Rate report and set date range" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="130" y="1380" width="230" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec9" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="24" target="19" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- System: Compile report -->
+    <mxCell id="25" value="Compile report with key figures and summary charts" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="140" y="1470" width="220" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec10" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="19" target="25" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- Actor: Repeat for other reports and export -->
+    <mxCell id="19b" value="Repeat for Cost per Unit and On-Time Delivery Rate reports" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="130" y="1600" width="230" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="19c" value="Export all reports as PDF" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="3">
+      <mxGeometry x="150" y="1700" width="200" height="40" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec11" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="25" target="19b" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="e19b" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="19b" target="19c" parent="3"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- System: Generate PDFs -->
+    <mxCell id="26" value="Generate and make PDF reports available for download" style="rounded=1;whiteSpace=wrap;" vertex="1" parent="4">
+      <mxGeometry x="130" y="1790" width="240" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec12" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="19c" target="26" parent="2"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <mxCell id="99" value="" style="ellipse;aspect=fixed;fillColor=#000000;strokeColor=#ffffff;strokeWidth=3;" vertex="1" parent="4">
+      <mxGeometry x="220" y="2060" width="30" height="30" as="geometry"/>
+    </mxCell>
+    <mxCell id="ec13" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="26" target="99" parent="4"><mxGeometry relative="1" as="geometry"/></mxCell>
+  </root>
+</mxGraphModel>
